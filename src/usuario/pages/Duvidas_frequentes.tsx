@@ -1,5 +1,4 @@
-import React from "react";
-import "../css/estilos.css"; // Certifique-se de importar seu CSS
+import '../../css/estilos.css'; // Certifique-se de importar seu CSS
 
 function Duvidas() {
   const perguntasFrequentes = [

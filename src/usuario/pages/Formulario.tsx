@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from 'react-hook-form';
-import '../css/estilos.css';
+import '../../css/estilos.css'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 

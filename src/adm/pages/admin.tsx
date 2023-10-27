@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/estilos.css';
+import '../css/estilosadm.css';
 
 function Admin() {
   return (

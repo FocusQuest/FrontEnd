@@ -1,15 +1,16 @@
-import '../css/menu.css';
+// Base.tsx
+import React from 'react';
 import { Outlet } from 'react-router-dom';
-import MenuAdm from './MenuAdm';
+import MenuTec from './MenuTec';
 
 
 
-function BaseAdm(): JSX.Element {
+function BaseTecnico(): JSX.Element {
   return (
     <>
-      <div className='App'>
+      <div className='App'>       
         <div>
-          <MenuAdm/>
+          <MenuTec />
         </div>
         <div className='ContainerM'>
           <Outlet />
@@ -19,6 +20,5 @@ function BaseAdm(): JSX.Element {
   );
 }
 
-export default BaseAdm;
-
+export default BaseTecnico;
 

@@ -1,18 +1,15 @@
-// Base.tsx
-import React from 'react';
-import './css/index.css';
 import { Outlet } from 'react-router-dom';
-import MenuTec from './pages/MenuTec';
+import MenuUsuario from './MenuUsuario';
 
 
 
-function Base(): JSX.Element {
+function BaseUsuario(): JSX.Element {
   return (
     <>
       <div className='App'>
         {/* Use o componente Menu aqui */}
         <div>
-          <MenuTec/>
+          <MenuUsuario/>
         </div>
         <div className='ContainerM'>
           <Outlet />
@@ -22,5 +19,5 @@ function Base(): JSX.Element {
   );
 }
 
-export default Base;
+export default BaseUsuario;
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../css/estilos.css';
-import '../../../adm/css/table.css';
+import '../../css/estilos.css'
+import '../../css/table.css';
 
 interface Chamado {
   id: number;
@@ -33,6 +33,14 @@ function ChamadosUsuarios() {
       console.log(`Botão 'Andamento' clicado para o chamado ${id}`);
     };
 
+    const formatarData = (data: string) => {
+      const dataAbertura = new Date(data);
+      const dia = String(dataAbertura.getDate()).padStart(2, '0');
+      const mes = String(dataAbertura.getMonth() + 1).padStart(2, '0');
+      const ano = String(dataAbertura.getFullYear()).slice(-2);
+      return `${dia}/${mes}/${ano}`;
+    };
+
   return (
     
     <div>
@@ -54,7 +62,7 @@ function ChamadosUsuarios() {
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
               <td>{chamado.descChamado}</td>
-              <td>{chamado.dataAberturaChamado}</td>
+              <td>{formatarData(chamado.dataAberturaChamado)}</td>
               <td>
                 <button onClick={() => handleButtonClick(chamado.id)}>Andamento</button>
               </td>
