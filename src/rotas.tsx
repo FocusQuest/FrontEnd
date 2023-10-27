@@ -1,27 +1,24 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import { AuthProvider } from './login/contexts/auth';
 import UsuariosList from './adm/pages/usuariosList';
-import Base from './usuario/components/BaseUsuario';
-import useAuth from './login/hooks/useAuth';
-// import Home from './login/pages/Home';
+import { AuthProvider } from './login/contexts/auth';
 import Signin from './login/pages/signin/login';
 import Signup from './login/pages/signup/signup';
-// import Abrir from './usuario/components/Abrir_chamado';
-import Duvidas from './usuario/components/pages/Duvidas_frequentes';
-import FormTeste from './usuario/components/pages/Formulario';
-import Painel from './usuario/components/pages/Meu_painel';
-// import Chamados from './usuario/components/Meus_chamados';
-import GlobalStyle from './login/estilos/global.js';
-import Home from './login/pages/home/home';
-import ChamadosList from './adm/pages/chamadosList';
-import Formulario from './usuario/components/pages/Formulario';
-import Chamados from './usuario/components/pages/Meus_chamados';
+import Duvidas from './usuario/pages/Duvidas_frequentes';
+import Painel from './usuario/pages/Meu_painel';
 import BaseAdm from './adm/BaseAdm';
-import Ferramentas from './adm/pages/ferramentas';
 import Admin from './adm/pages/admin';
-import ChamadosUsuarios from './usuario/components/pages/Meus_chamados';
-import ChamadoEnviado from './usuario/components/pages/chamado_enviado';
+import ChamadosList from './adm/pages/chamadosList';
+import Ferramentas from './adm/pages/ferramentas';
+import BaseUsuario from './usuario/BaseUsuario';
+import Formulario from './usuario/pages/Formulario';
+import ChamadosUsuarios from './usuario/pages/Meus_chamados';
+import ChamadoEnviado from './usuario/pages/chamado_enviado';
+import BaseTecnico from './tecnico/BaseTecnico';
+import PainelTec from './tecnico/pages/paineltec';
+import FerramentasTec from './tecnico/pages/ferramentas_tec';
+import Ativos from './tecnico/pages/ativos';
+import ChamadosTec from './tecnico/pages/chamados_tec';
 
 /**
  * Renders the `Item` component if the user is signed in, otherwise renders the `Signin` component.
@@ -44,7 +41,7 @@ const Rotas = (): JSX.Element => {
                         <Route path="Todos_chamados" element={<ChamadosList />} />
                         <Route path="/" element={<Signin />} />
                         <Route path="/signup" element={<Signup />} />
-                        <Route path="/usuario" element={<Base />}>
+                        <Route path="/usuario" element={<BaseUsuario />}>
                             <Route path="Meu_painel" element={<Painel />} />
                             <Route path="Duvidas" element={<Duvidas />} />
                             <Route path="Abrir_chamado" element={<Formulario/>} />
@@ -56,6 +53,12 @@ const Rotas = (): JSX.Element => {
                             <Route path="Ferramentas" element={<Ferramentas />} />        
                             <Route path="Admin" element={<Admin />} />    
                             <Route path="Chamados" element={<ChamadosList />} />   
+                        </Route>
+                        <Route path="/tecnico" element={<BaseTecnico />}>
+                            <Route path="Painel_tecnico" element={<PainelTec />} /> 
+                            <Route path="Ferramentas_tec" element={<FerramentasTec />} />        
+                            <Route path="Ativos" element={<Ativos />} />    
+                            <Route path="Chamados_tec" element={<ChamadosTec />} />   
                         </Route>
                     </Routes>
                 </React.Fragment>
