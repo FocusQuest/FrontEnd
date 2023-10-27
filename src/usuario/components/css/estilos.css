@@ -4,13 +4,14 @@ body {
   padding: 0;
 }
 
-.Container {
+.ContainerM {
   align-items: flex-start;
-  width: 65%;
-  margin: auto;
+  width: 80%;
+  /* margin: auto; */
   overflow:auto;
-  min-height: 300px;
-  padding: 10px;
+  /* min-height: 300px; */
+  /* padding: 10px; */
+  margin-left: 250px;
 }
 
 .Content {
@@ -113,7 +114,7 @@ h1 {
 
 #sidebar {
   height: 100%;
-  position: fixed;
+  position: flex;
   top: 0;
   left: 0;
   width: 250px;
@@ -161,11 +162,6 @@ h1 {
   margin-right: 10px;   
 }
 
-#img-menu {
-  float: right;
-  /* margin-right: 10px;  */
-  
-}
 
 textarea {
   width: 100%;
@@ -359,4 +355,16 @@ h1 {
   display: flex;
   justify-content:center;
   align-items:center;
+}
+.fixed-top {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.sidebar-fixed {
+  /* width: 250px; */
+  position: fixed;
+  top: 0;
+  left: 0;
 }
