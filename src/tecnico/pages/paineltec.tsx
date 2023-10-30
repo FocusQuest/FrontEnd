@@ -4,12 +4,12 @@ function PainelTec() {
         <h2>Meu Painel</h2>
         <hr></hr>
         
-        <div className="containerBoxesTec">
-
-          <div className="boxTec" id="box4">
+        <div className="containerBoxes">
+          
+          <div className="boxTec" id="box3">
               <div className="box-content">
-                <h2>Aguardando aprovação</h2>
-                <p>10</p>
+                <h2>Chamados Atrasados</h2>
+                <p>3</p>
               </div>
             </div>
 
@@ -27,12 +27,7 @@ function PainelTec() {
               </div>
             </div>
     
-            <div className="boxTec" id="box3">
-              <div className="box-content">
-                <h2>Chamados Finalizados</h2>
-                <p>3</p>
-              </div>
-            </div>
+            
   
         </div>
         <h2>Chamados recentes</h2>

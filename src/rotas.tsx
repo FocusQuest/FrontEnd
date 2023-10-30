@@ -17,10 +17,14 @@ import ChamadoEnviado from './usuario/pages/chamado_enviado';
 import BaseTecnico from './tecnico/BaseTecnico';
 import PainelTec from './tecnico/pages/paineltec';
 import FerramentasTec from './tecnico/pages/ferramentas_tec';
-import Ativos from './tecnico/pages/ativos';
 import ChamadosTec from './tecnico/pages/chamados_tec';
 import LoginAdm from './login/pages/signin/login_adm';
 import LoginTecnico from './login/pages/signin/login_técnico';
+import ChamadosAtivos from './tecnico/pages/ativos';
+import CriaUsuario from './adm/pages/criar_usuario';
+import AdicionaFerramenta from './adm/pages/adicionar_ferramenta';
+import RedefineSenha from './adm/pages/redefinir_senha';
+import AdicionarServico from './adm/pages/adicionar_servico';
 
 /**
  * Renders the `Item` component if the user is signed in, otherwise renders the `Signin` component.
@@ -56,12 +60,18 @@ const Rotas = (): JSX.Element => {
                             <Route path="Usuarios" element={<UsuariosList />} /> 
                             <Route path="Ferramentas" element={<Ferramentas />} />        
                             <Route path="Admin" element={<Admin />} />    
-                            <Route path="Chamados" element={<ChamadosList />} />   
+                            <Route path="Chamados" element={<ChamadosList />} />
+                            <Route path="Criar_usuario" element={<CriaUsuario />} />
+                            <Route path="Adicionar_serviço" element={<AdicionarServico />} />
+                            <Route path="Adicionar_ferramenta" element={<AdicionaFerramenta />} />
+                            <Route path="Redefinir_senha" element={<RedefineSenha />} />                              
+
+                                
                         </Route>
                         <Route path="/tecnico" element={<BaseTecnico />}>
                             <Route path="Painel_tecnico" element={<PainelTec />} /> 
                             <Route path="Ferramentas_tec" element={<FerramentasTec />} />        
-                            <Route path="Ativos" element={<Ativos />} />    
+                            <Route path="Ativos" element={<ChamadosAtivos />} />    
                             <Route path="Chamados_tec" element={<ChamadosTec />} />   
                         </Route>
                     </Routes>
