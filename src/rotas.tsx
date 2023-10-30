@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import UsuariosList from './adm/pages/usuariosList';
 import { AuthProvider } from './login/contexts/auth';
-import Signin from './login/pages/signin/login';
+import Signin from './login/pages/signin/login_usuario';
 import Signup from './login/pages/signup/signup';
 import Duvidas from './usuario/pages/Duvidas_frequentes';
 import Painel from './usuario/pages/Meu_painel';
@@ -19,6 +19,8 @@ import PainelTec from './tecnico/pages/paineltec';
 import FerramentasTec from './tecnico/pages/ferramentas_tec';
 import Ativos from './tecnico/pages/ativos';
 import ChamadosTec from './tecnico/pages/chamados_tec';
+import LoginAdm from './login/pages/signin/login_adm';
+import LoginTecnico from './login/pages/signin/login_técnico';
 
 /**
  * Renders the `Item` component if the user is signed in, otherwise renders the `Signin` component.
@@ -41,6 +43,8 @@ const Rotas = (): JSX.Element => {
                         <Route path="Todos_chamados" element={<ChamadosList />} />
                         <Route path="/" element={<Signin />} />
                         <Route path="/signup" element={<Signup />} />
+                        <Route path="/tecnico/Login_Tecnico" element={<LoginTecnico/>} /> 
+                        <Route path="/adm/Login_Adm" element={<LoginAdm/>} />
                         <Route path="/usuario" element={<BaseUsuario />}>
                             <Route path="Meu_painel" element={<Painel />} />
                             <Route path="Duvidas" element={<Duvidas />} />
