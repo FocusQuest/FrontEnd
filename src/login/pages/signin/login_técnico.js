@@ -76,7 +76,6 @@ const LoginTecnico = () => {
         <C.labelError>{error}</C.labelError>
         <Button Text="Entrar" onClick={handleLogin} />
         <C.LabelSignup>
-          <br></br>
           Administrador do sistema?
           <C.Strong>
             <Link to="/adm/Login_adm">&nbsp;Clique aqui </Link>

@@ -80,10 +80,15 @@ const Signin = () => {
           <C.Strong>
             <Link to="/signup">&nbsp;Solicite seu cadastro </Link>
           </C.Strong> */}
-        <br></br>
+          {/* <br></br> */}
           Equipe de suporte?    
           <C.Strong>      
             <Link to="/tecnico/Login_Tecnico">&nbsp;Clique aqui</Link>
+          </C.Strong>
+          <br></br>
+          Administrador do sistema?
+          <C.Strong>
+            <Link to="/adm/Login_adm">&nbsp;Clique aqui </Link>
           </C.Strong>
         </C.LabelSignup>
       </C.Content>

@@ -45,5 +45,6 @@ export const Strong = styled.strong`
   a {
     text-decoration: none;
     color: #676767;
+    
   }
 `;
