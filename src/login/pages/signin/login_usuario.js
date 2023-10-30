@@ -22,35 +22,25 @@ const Signin = () => {
         return;
       }
 
-      const res = signin(email, senha);
-
-      if (res) {
-        setError(res);
-        return;
-      }
       const data = {
         emailUsuario: email,
         senhaUsuario: senha,
       };
 
-      setEmail("admin@gmail.com");
-      setSenha("admin");
+      // const usuarios = await axios.get(`http://localhost:3000/usuarios`, data);
 
-      if (email === "admin@gmail.com" && senha === "admin") {
-        navigate("/adm/admin");
-      }
+      const responseLogin = await axios.post(
+        `http://localhost:3000/usuarios/login`,
+        data,
+      );
 
-      if (email !== "admin@gmail.com" && senha !== "admin") {
-        const responseLogin = await axios.post(
-          `http://localhost:3000/usuarios/login/3`,
-          data,
-        );
+      setId(responseLogin.data.usuario.id);
 
-        setId(responseLogin.data.usuario.id);
-
-        if (responseLogin.status === 202) {
-          navigate("/usuario/Meu_painel");
-        }
+      if (
+        responseLogin.status === 202 &&
+        responseLogin.data.usuario.nivelAcesso === "3"
+      ) {
+        navigate("/usuario/Meu_painel");
       }
     } catch (error) {
       console.error(error);
@@ -81,8 +71,8 @@ const Signin = () => {
             <Link to="/signup">&nbsp;Solicite seu cadastro </Link>
           </C.Strong> */}
           {/* <br></br> */}
-          Equipe de suporte?    
-          <C.Strong>      
+          Equipe de suporte?
+          <C.Strong>
             <Link to="/tecnico/Login_Tecnico">&nbsp;Clique aqui</Link>
           </C.Strong>
           <br></br>

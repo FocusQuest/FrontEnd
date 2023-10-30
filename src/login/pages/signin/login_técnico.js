@@ -22,35 +22,21 @@ const LoginTecnico = () => {
         return;
       }
 
-      const res = signin(email, senha);
-
-      if (res) {
-        setError(res);
-        return;
-      }
       const data = {
         emailUsuario: email,
         senhaUsuario: senha,
       };
 
-      setEmail("admin@gmail.com");
-      setSenha("admin");
+      const responseLogin = await axios.post(
+        `http://localhost:3000/usuarios/login`,
+        data,
+      );
 
-      if (email === "admin@gmail.com" && senha === "admin") {
-        navigate("/adm/admin");
-      }
-
-      if (email !== "admin@gmail.com" && senha !== "admin") {
-        const responseLogin = await axios.post(
-          `http://localhost:3000/usuarios/login/3`,
-          data,
-        );
-
-        setId(responseLogin.data.usuario.id);
-
-        if (responseLogin.status === 202) {
-          navigate("/usuario/Meu_painel");
-        }
+      if (
+        responseLogin.status === 202 &&
+        responseLogin.data.usuario.nivelAcesso === "2"
+      ) {
+        navigate("/tenico/chamados");
       }
     } catch (error) {
       console.error(error);
@@ -86,4 +72,4 @@ const LoginTecnico = () => {
   );
 };
 
-export default LoginTecnico; 
+export default LoginTecnico;
