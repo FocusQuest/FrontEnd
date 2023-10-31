@@ -36,7 +36,7 @@ const LoginTecnico = () => {
         responseLogin.status === 202 &&
         responseLogin.data.usuario.nivelAcesso === "2"
       ) {
-        navigate("/tenico/chamados");
+        navigate("/tecnico/Painel_tecnico");
       }
     } catch (error) {
       console.error(error);
