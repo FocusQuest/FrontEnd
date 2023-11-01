@@ -37,6 +37,7 @@ const LoginAdm = () => {
         responseLogin.data.usuario.nivelAcesso === "1"
       ) {
         localStorage.setItem("idUsuario", responseLogin.data.usuario.id);
+        localStorage.setItem("nomeUsuario", responseLogin.data.usuario.nome);
         navigate("/adm/admin");
       }
     } catch (error) {
