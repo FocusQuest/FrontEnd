@@ -1,35 +1,43 @@
-import '../css/index.css';
-import { Link } from 'react-router-dom';
-import Nav from 'react-bootstrap/Nav';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "../css/index.css";
+import { Link } from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function MenuTec(): JSX.Element {
   return (
     <>
-      <div className='MenuSup'>
-        <div id='MenuSupItem'>
-          
-        </div>
+      <div className="MenuSup">
+        <div id="MenuSupItem"></div>
         <div>
-          <h5> 
-            {" "} {localStorage.getItem("nomeUsuario")}{" "} <br />
-            Técnico</h5>
+          <h5>
+            {" "}
+            Nome do tecnico <br /> {localStorage.getItem("nomeUsuario")}{" "}
+          </h5>
         </div>
       </div>
       <div className="sidebar-fixed">
         <div className="container-fluid">
-          <div className="row">            
+          <div className="row">
             <nav id="sidebar">
               <div className="sidebar-header">
                 <h4> HelpDesk</h4>
               </div>
               <div className="list-unstyled components">
-                <Nav.Link as={Link} to="Painel_tecnico"> Meu painel </Nav.Link>
-                <Nav.Link as={Link} to="Ferramentas_tec"> Ferramentas </Nav.Link>
+                <Nav.Link as={Link} to="Painel_tecnico">
+                  {" "}
+                  Meu painel{" "}
+                </Nav.Link>
+                <Nav.Link as={Link} to="Ferramentas_tec">
+                  {" "}
+                  Ferramentas{" "}
+                </Nav.Link>
                 {/* <Nav.Link as={Link} to="Ativos"> Ativos </Nav.Link> */}
-                <Nav.Link as={Link} to="Ativos"> Chamados </Nav.Link>
+                <Nav.Link as={Link} to="Ativos">
+                  {" "}
+                  Chamados{" "}
+                </Nav.Link>
               </div>
-            </nav>          
+            </nav>
           </div>
         </div>
       </div>
@@ -55,7 +63,7 @@ export default MenuTec;
 // }
 
 // function MenuTec(): JSX.Element {
-  
+
 //   const userId = Number(localStorage.getItem("idUsuario"));
 //   const nomeUsuario = localStorage.getItem("nomeUsuario"); // Obter o nome do usuário
 //   const [usuario, setUsuario] = useState<Usuario | null>(null);
@@ -76,7 +84,7 @@ export default MenuTec;
 //       fetchUsuario(userId);
 //     }
 //   }, [userId]);
-  
+
 //   return (
 //     <>
 //       <div className='MenuSup'>
@@ -91,7 +99,7 @@ export default MenuTec;
 //       </div>
 //       <div className="sidebar-fixed">
 //         <div className="container-fluid">
-//           <div className="row">                   
+//           <div className="row">
 //             <nav id="sidebar">
 //               <div className="sidebar-header">
 //                 <h4> HelpDesk</h4>
@@ -102,7 +110,7 @@ export default MenuTec;
 //                 {/* <Nav.Link as={Link} to="Ativos"> Ativos </Nav.Link> */}
 //                 <Nav.Link as={Link} to="Ativos"> Chamados </Nav.Link>
 //               </div>
-//             </nav>            
+//             </nav>
 //           </div>
 //         </div>
 //       </div>

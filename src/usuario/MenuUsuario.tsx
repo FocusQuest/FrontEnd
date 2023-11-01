@@ -1,18 +1,20 @@
-import { Link } from 'react-router-dom';
-import Nav from 'react-bootstrap/Nav';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/menu.css';
-
+import { Link } from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/menu.css";
 
 function MenuUsuario(): JSX.Element {
   return (
     <>
-      <div className='MenuSup'>
-        <div id='MenuSupItem'>
+      <div className="MenuSup">
+        <div id="MenuSupItem">
           {/* <img src="./img/sino.png" alt="sino" /> */}
         </div>
         <div>
-          <h5> Nome do usuário <br /> Usuário </h5>
+          <h5>
+            {" "}
+            Nome do usuário <br /> {localStorage.getItem("nomeUsuario")}{" "}
+          </h5>
         </div>
       </div>
       <div className="sidebar-fixed">
@@ -23,12 +25,24 @@ function MenuUsuario(): JSX.Element {
                 <h4> HelpDesk</h4>
               </div>
               <div className="list-unstyled components">
-                <Nav.Link as={Link} to="Meu_painel"> Meu painel </Nav.Link>
-                <Nav.Link as={Link} to="Duvidas"> Dúvidas frequentes </Nav.Link>
-                <Nav.Link as={Link} to="Abrir_chamado"> Abrir Chamado </Nav.Link>
-                <Nav.Link as={Link} to="Meus_chamados"> Meus chamados </Nav.Link>
+                <Nav.Link as={Link} to="Meu_painel">
+                  {" "}
+                  Meu painel{" "}
+                </Nav.Link>
+                <Nav.Link as={Link} to="Duvidas">
+                  {" "}
+                  Dúvidas frequentes{" "}
+                </Nav.Link>
+                <Nav.Link as={Link} to="Abrir_chamado">
+                  {" "}
+                  Abrir Chamado{" "}
+                </Nav.Link>
+                <Nav.Link as={Link} to="Meus_chamados">
+                  {" "}
+                  Meus chamados{" "}
+                </Nav.Link>
               </div>
-            </nav>           
+            </nav>
           </div>
         </div>
       </div>
@@ -37,5 +51,3 @@ function MenuUsuario(): JSX.Element {
 }
 
 export default MenuUsuario;
-
-

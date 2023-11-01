@@ -40,7 +40,10 @@ const Signin = () => {
         responseLogin.data.usuario.nivelAcesso === "3"
       ) {
         localStorage.setItem("idUsuario", responseLogin.data.usuario.id);
-        localStorage.setItem("nomeUsuario", responseLogin.data.usuario.nome);
+        localStorage.setItem(
+          "nomeUsuario",
+          responseLogin.data.usuario.nomeUsuario,
+        );
         navigate("/usuario/Meu_painel");
       }
     } catch (error) {
