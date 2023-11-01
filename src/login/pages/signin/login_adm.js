@@ -32,12 +32,11 @@ const LoginAdm = () => {
         data,
       );
 
-      setId(responseLogin.data.usuario.id);
-
       if (
         responseLogin.status === 202 &&
         responseLogin.data.usuario.nivelAcesso === "1"
       ) {
+        localStorage.setItem("idUsuario", responseLogin.data.usuario.id);
         navigate("/adm/admin");
       }
     } catch (error) {

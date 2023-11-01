@@ -36,6 +36,7 @@ const LoginTecnico = () => {
         responseLogin.status === 202 &&
         responseLogin.data.usuario.nivelAcesso === "2"
       ) {
+        localStorage.setItem("idUsuario", responseLogin.data.usuario.id);
         navigate("/tecnico/Painel_tecnico");
       }
     } catch (error) {

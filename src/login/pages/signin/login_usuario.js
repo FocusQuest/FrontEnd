@@ -33,13 +33,13 @@ const Signin = () => {
         `http://localhost:3000/usuarios/login`,
         data,
       );
-
-      setId(responseLogin.data.usuario.id);
+      // localStorage.setItem("token", responseLogin.data.token);
 
       if (
         responseLogin.status === 202 &&
         responseLogin.data.usuario.nivelAcesso === "3"
       ) {
+        localStorage.setItem("idUsuario", responseLogin.data.usuario.id);
         navigate("/usuario/Meu_painel");
       }
     } catch (error) {
