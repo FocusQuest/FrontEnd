@@ -21,7 +21,7 @@ interface Chamado {
 
 const ChamadosAtivos: React.FC = () => {
   const [chamados, setChamados] = useState<Chamado[]>([]);
-  const [prioridadeSelecionada, setPrioridadeSelecionada] = useState("");
+  
 
   useEffect(() => {
     const urls = [
@@ -56,9 +56,7 @@ const ChamadosAtivos: React.FC = () => {
         console.log(`Botão 'Andamento' clicado para o Chamado ${id}`);
       };
 
-      const handlePrioridadeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setPrioridadeSelecionada(event.target.value);
-      };
+      
 
   return (
     <div>

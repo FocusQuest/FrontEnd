@@ -37,7 +37,7 @@ const ChamadosList: React.FC = () => {
   };
 
   const handleButtonClick = (id: number) => {
-    // Lógica para lidar com o clique do botão
+    //  Lógica para lidar com o clique do botão
   };
 
   const handlePrioridadeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
