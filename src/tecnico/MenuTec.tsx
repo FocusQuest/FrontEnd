@@ -13,7 +13,7 @@ function MenuTec(): JSX.Element {
           <img src="./img/sino.png" alt="sino" />
         </div>
         <div>
-          <h5> Nome do usuário <br /> Usuário </h5>
+          <h5> Nome do usuário <br /> Técnico </h5>
         </div>
       </div>
       <div className="sidebar-fixed">
@@ -26,8 +26,8 @@ function MenuTec(): JSX.Element {
               <div className="list-unstyled components">
                 <Nav.Link as={Link} to="Painel_tecnico"> Meu painel </Nav.Link>
                 <Nav.Link as={Link} to="Ferramentas_tec"> Ferramentas </Nav.Link>
-                <Nav.Link as={Link} to="Ativos"> Ativos </Nav.Link>
-                <Nav.Link as={Link} to="Chamados_tec"> Meus chamados </Nav.Link>
+                {/* <Nav.Link as={Link} to="Ativos"> Ativos </Nav.Link> */}
+                <Nav.Link as={Link} to="Ativos"> Chamados Ativos </Nav.Link>
               </div>
             </nav>          
           </div>

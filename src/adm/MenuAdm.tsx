@@ -27,7 +27,7 @@ function MenuAdm(): JSX.Element {
               <Nav.Link as={Link} to="admin"> Administração </Nav.Link>                    
                 <Nav.Link as={Link} to="ferramentas"> Ferramentas </Nav.Link>
                 <Nav.Link as={Link} to="usuarios"> Usuarios </Nav.Link>
-                <Nav.Link as={Link} to="Chamados"> Chamados </Nav.Link>
+                <Nav.Link as={Link} to="Chamados"> Chamados Ativos </Nav.Link>
               </div>
             </nav>            
           </div>
