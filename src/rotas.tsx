@@ -17,7 +17,6 @@ import ChamadoEnviado from './usuario/pages/chamado_enviado';
 import BaseTecnico from './tecnico/BaseTecnico';
 import PainelTec from './tecnico/pages/paineltec';
 import FerramentasTec from './tecnico/pages/ferramentas_tec';
-import ChamadosTec from './tecnico/pages/chamados_tec';
 import LoginAdm from './login/pages/signin/login_adm';
 import LoginTecnico from './login/pages/signin/login_técnico';
 import ChamadosAtivos from './tecnico/pages/ativos';
@@ -74,7 +73,7 @@ const Rotas = (): JSX.Element => {
                             <Route path="Painel_tecnico" element={<PainelTec />} /> 
                             <Route path="Ferramentas_tec" element={<FerramentasTec />} />        
                             <Route path="Ativos" element={<ChamadosAtivos />} />    
-                            <Route path="Chamados_tec" element={<ChamadosTec />} />   
+                            
                         </Route>
                     </Routes>
                 </React.Fragment>

@@ -13,7 +13,9 @@ interface Chamado {
 
 function ChamadosUsuarios() {
   const [chamados, setChamados] = useState<Chamado[]>([]);
+
   const userId = localStorage.getItem("idUsuario"); // Replace with the actual user ID value
+
 
   useEffect(() => {
     const fetchChamados = async () => {
