@@ -25,6 +25,7 @@ import CriaUsuario from './adm/pages/criar_usuario';
 import AdicionaFerramenta from './adm/pages/adicionar_ferramenta';
 import RedefineSenha from './adm/pages/redefinir_senha';
 import AdicionarServico from './adm/pages/adicionar_servico';
+import Inicio from './inicio/inicio';
 
 /**
  * Renders the `Item` component if the user is signed in, otherwise renders the `Signin` component.
@@ -45,6 +46,7 @@ const Rotas = (): JSX.Element => {
                 <React.Fragment>  
                     <Routes>
                         <Route path="Todos_chamados" element={<ChamadosList />} />
+                        <Route path="/inicio" element={<Inicio />} />
                         <Route path="/" element={<Signin />} />
                         <Route path="/signup" element={<Signup />} />
                         <Route path="/tecnico/Login_Tecnico" element={<LoginTecnico/>} /> 

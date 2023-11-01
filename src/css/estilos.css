@@ -247,15 +247,15 @@ button:hover {
 
 /* Cores de fundo personalizadas para cada caixa */
 #box1 {
-  background-color: #ffea5a; /* Amarelo */
+  background-color: #ff6b6b; /* Amarelo */
 }
 
 #box2 {
-  background-color: #76d672; /* Verde */
+  background-color: #ffdc60 /* Verde */
 }
 
 #box3 {
-  background-color: #ff6b6b; /* Vermelho */
+  background-color: #65cf59; /* Vermelho */
 }
 
 #box4 {
@@ -333,4 +333,54 @@ h1 {
   padding: 15px;
   text-align: center;
   /* overflow-x: hidden; Isso remove a barra de rolagem horizontal */
+}
+
+/*CSS para a página de início*/
+
+.background-image {
+  background-color: #2d2d2d;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative; 
+}
+
+.content1 {
+  background-color: rgba(31, 28, 28, 0.8);
+  color: #ebedf1;
+  padding: 20px;
+  width: 100%; /* Define a largura como 100% para ocupar toda a largura da tela */
+}
+
+.content2 {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  font-size: large;
+  position: absolute; /* Adicione esta linha para tornar o posicionamento absoluto */
+  top: 50%; /* Centraliza verticalmente */
+  left: 25%; /* Centraliza horizontalmente */
+  transform: translate(-50%, -50%); /* Centraliza completamente */
+}
+
+.content3 {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  position: absolute; /* Adicione esta linha para tornar o posicionamento absoluto */
+  top: 60%; /* Centraliza verticalmente */
+  left: 75%; /* Centraliza horizontalmente */
+  transform: translate(-50%, -50%); /* Centraliza completamente */
+}
+
+.botãobonito button {
+  margin: 10px 0; /* Adicione margem na parte superior e inferior para espaço entre os botões */
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  width: 100%; /* Garante que os botões ocupem todo o espaço horizontal */
 }
