@@ -28,7 +28,7 @@ interface Chamado {
 
 function PainelTec() {
   const [chamados, setChamados] = useState<Chamado[]>([]);
-  
+  const [counts, setCounts] = useState<number[]>([]);
 
   useEffect(() => {
     const urls = [
@@ -42,6 +42,8 @@ function PainelTec() {
         const responses = await Promise.all(urls.map(url => axios.get(url)));
         const chamadosData = responses.flatMap(response => response.data);
         setChamados(chamadosData);
+        const counts = responses.map(response => response.data.length);
+        setCounts(counts);
       } catch (error) {
         console.error(error);
       }
@@ -73,22 +75,22 @@ function PainelTec() {
       <div className="containerBoxes">
         <div className="box" id="box2">
           <div className="box-content">
-            <h2>Chamados Abertos</h2>
-            <p>10</p>
+            <h2>Chamados Novos</h2>
+            <h2>{counts[0]}</h2>
           </div>
         </div>
 
         <div className="box" id="box1">
           <div className="box-content">
-            <h2>Chamados Atrasados</h2>
-            <p>5</p>
+            <h2>Chamados Abertos</h2>
+            <h2>{counts[1]}</h2>
           </div>
         </div>
 
         <div className="box" id="box3">
           <div className="box-content">
-            <h2>Chamados Concluídos</h2>
-            <p>3</p>
+            <h2>Chamados atrasados</h2>
+            <h2>{counts[2]}</h2>
           </div>
         </div>
       </div>
