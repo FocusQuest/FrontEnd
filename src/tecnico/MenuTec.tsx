@@ -11,7 +11,7 @@ function MenuTec(): JSX.Element {
         <div>
           <h5>
             {" "}
-            Nome do tecnico <br /> {localStorage.getItem("nomeUsuario")}{" "}
+            {localStorage.getItem("nomeUsuario")}{" "} <br></br> Técnico 
           </h5>
         </div>
       </div>

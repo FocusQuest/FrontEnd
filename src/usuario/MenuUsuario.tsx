@@ -13,7 +13,7 @@ function MenuUsuario(): JSX.Element {
         <div>
           <h5>
             {" "}
-            Nome do usuário <br /> {localStorage.getItem("nomeUsuario")}{" "}
+             {localStorage.getItem("nomeUsuario")}{" "} <br></br> Usuário
           </h5>
         </div>
       </div>
@@ -35,7 +35,7 @@ function MenuUsuario(): JSX.Element {
                 </Nav.Link>
                 <Nav.Link as={Link} to="Abrir_chamado">
                   {" "}
-                  Abrir Chamado{" "}
+                  Abrir chamado{" "}
                 </Nav.Link>
                 <Nav.Link as={Link} to="Meus_chamados">
                   {" "}
