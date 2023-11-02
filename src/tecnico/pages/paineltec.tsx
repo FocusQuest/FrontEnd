@@ -8,6 +8,7 @@ interface Chamado {
   nomeChamado: string;
   descChamado: string;
   dataAberturaChamado: string;
+  idSuporte: number;
 }
 
 function PainelTec() {
@@ -81,8 +82,8 @@ function PainelTec() {
         <thead>
           <tr>
             <th>Número do Chamado</th>
-            <th>Nome do Chamado</th>
-            <th>Descrição do chamado</th>
+            <th>Assunto</th>
+            <th>Técnico Responsável</th>
             <th>Data da abertura</th>
             <th>Status</th>
           </tr>
@@ -92,7 +93,7 @@ function PainelTec() {
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
-              <td>{chamado.descChamado}</td>
+              <td>{chamado.idSuporte}</td> {/* Lógica para exibir o Id do técnico responsável, precisa puxar o nome */}
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
               <td>
                 <button onClick={() => handleButtonClick(chamado.id)}>

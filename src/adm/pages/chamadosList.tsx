@@ -12,6 +12,7 @@ interface Chamado {
     emailUsuario: string;
     telefoneUsuario: string;
   };
+  idSuporte: number;
 }
 
 const ChamadosList: React.FC = () => {
@@ -54,6 +55,7 @@ const ChamadosList: React.FC = () => {
             <th>Número</th>
             <th>Assunto</th>
             <th>Data da abertura</th>
+            <th>Técnico Responsável</th>
             <th>Nome do Usuário</th>
             <th>Email do Usuário</th>
             <th>Status</th>
@@ -66,6 +68,7 @@ const ChamadosList: React.FC = () => {
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
+              <td>{chamado.idSuporte}</td>
               <td>{chamado.usuario.nomeUsuario}</td>
               <td>{chamado.usuario.emailUsuario}</td>
               <td>

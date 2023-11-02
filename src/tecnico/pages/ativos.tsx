@@ -17,6 +17,7 @@ interface Chamado {
     descAndamento: string
     prioridadeAndamento: string
   };
+  idSuporte: number;
 };
 
 const ChamadosAtivos: React.FC = () => {
@@ -68,7 +69,8 @@ const ChamadosAtivos: React.FC = () => {
             <th>Número do Chamado</th>
             <th>Assunto</th>
             <th>Data da abertura</th>
-            <th>Nome do usuario</th>
+            <th>Técnico Responsável</th>
+            <th>Nome do usuario</th>            
             <th>E-mail do Usuário</th>
             <th>Status</th>
             <th>Prioridade</th>
@@ -81,6 +83,7 @@ const ChamadosAtivos: React.FC = () => {
               <td>{chamado.nomeChamado}</td>
               {/* <td>{chamado.descChamado}</td> */}
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
+              <td>{chamado.idSuporte}</td>
               <td>{chamado.usuario.nomeUsuario}</td>
               <td>{chamado.usuario.emailUsuario}</td>
               <td><button onClick={() => handleButtonClick(chamado.id)}>Andamento</button></td>

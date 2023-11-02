@@ -8,7 +8,8 @@ interface Chamado {
   nomeChamado: string;
   descChamado: string;
   dataAberturaChamado: string;
-  // Include other properties here
+  idSuporte: number;
+  
 }
 
 function ChamadosUsuarios() {
@@ -37,12 +38,15 @@ function ChamadosUsuarios() {
     console.log(`Botão 'Andamento' clicado para o chamado ${id}`);
   };
 
-  const formatarData = (data: string) => {
+  const formatarData = (data: string): React.ReactNode => {
     const dataAbertura = new Date(data);
-    const dia = String(dataAbertura.getDate()).padStart(2, "0");
-    const mes = String(dataAbertura.getMonth() + 1).padStart(2, "0");
+    const dia = String(dataAbertura.getDate()).padStart(2, '0');
+    const mes = String(dataAbertura.getMonth() + 1).padStart(2, '0');
     const ano = String(dataAbertura.getFullYear()).slice(-2);
-    return `${dia}/${mes}/${ano}`;
+    const hora = String(dataAbertura.getHours()).padStart(2, '0');
+    const minutos = String(dataAbertura.getMinutes()).padStart(2, '0');
+    const segundos = String(dataAbertura.getSeconds()).padStart(2, '0');
+    return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
   };
 
   return (
@@ -53,10 +57,11 @@ function ChamadosUsuarios() {
         <thead>
           <tr>
             <th>Número do Chamado</th>
-            <th>Nome do Chamado</th>
-            <th>Descrição do chamado</th>
+            <th>Assunto</th>
             <th>Data da abertura</th>
+            <th>Técnico Responsável</th>
             <th>Status</th>
+            <th>Prioridade</th>
           </tr>
         </thead>
         <tbody>
@@ -64,14 +69,14 @@ function ChamadosUsuarios() {
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
-              <td>{chamado.descChamado}</td>
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
+              <td>{chamado.idSuporte}</td>
               <td>
                 <button onClick={() => handleButtonClick(chamado.id)}>
                   Andamento
                 </button>
               </td>
-              {/* Render other properties here */}
+              <td></td>
             </tr>
           ))}
         </tbody>

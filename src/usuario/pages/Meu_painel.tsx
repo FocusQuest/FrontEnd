@@ -47,6 +47,7 @@ interface Chamado {
   nomeChamado: string;
   descChamado: string;
   dataAberturaChamado: string;
+  idSuporte: number;
   
 }
 
@@ -60,7 +61,7 @@ const fetchChamados = async () => {
     const response = await axios.get<Chamado[]>(
       `http://localhost:3000/chamados/usuario/${userId}`,
     );
-    setChamados(response.data.slice(0, 5)); // Limita para os 3 primeiros chamados
+    setChamados(response.data.slice(0, 5)); // Limita para os 5 primeiros chamados
   } catch (error) {
     console.error(error);
   }
@@ -78,10 +79,13 @@ const fetchChamados = async () => {
 
   const formatarData = (data: string) => {
     const dataAbertura = new Date(data);
-    const dia = String(dataAbertura.getDate()).padStart(2, "0");
-    const mes = String(dataAbertura.getMonth() + 1).padStart(2, "0");
+    const dia = String(dataAbertura.getDate()).padStart(2, '0');
+    const mes = String(dataAbertura.getMonth() + 1).padStart(2, '0');
     const ano = String(dataAbertura.getFullYear()).slice(-2);
-    return `${dia}/${mes}/${ano}`;
+    const hora = String(dataAbertura.getHours()).padStart(2, '0');
+    const minutos = String(dataAbertura.getMinutes()).padStart(2, '0');
+    const segundos = String(dataAbertura.getSeconds()).padStart(2, '0');
+    return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
   };
 
   return (
@@ -116,8 +120,8 @@ const fetchChamados = async () => {
         <thead>
           <tr>
             <th>Número do Chamado</th>
-            <th>Nome do Chamado</th>
-            <th>Descrição do chamado</th>
+            <th>Assunto</th>
+            <th>Técnico responsável</th>
             <th>Data da abertura</th>
             <th>Status</th>
           </tr>
@@ -127,7 +131,7 @@ const fetchChamados = async () => {
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
-              <td>{chamado.descChamado}</td>
+              <td>{chamado.idSuporte}</td>
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
               <td>
                 <button onClick={() => handleButtonClick(chamado.id)}>
