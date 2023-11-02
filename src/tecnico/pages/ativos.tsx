@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 interface Chamado {
   id: number;
   nomeChamado: string;
   descChamado: string;
   dataAberturaChamado: string;
+  idSuporte: string;
   usuario: {
     id: number;
     nomeUsuario: string;
@@ -17,6 +19,10 @@ interface Chamado {
     descAndamento: string
     prioridadeAndamento: string
   };
+  suporte: {
+    id: number,
+    nomeUsuario: string 
+  }
 };
 
 const ChamadosAtivos: React.FC = () => {
@@ -68,6 +74,7 @@ const ChamadosAtivos: React.FC = () => {
           <tr>
             <th>Número do Chamado</th>
             <th>Assunto</th>
+            <th>Técnico Responsável</th>
             <th>Data da abertura</th>
             <th>Nome do usuario</th>
             <th>E-mail do Usuário</th>
@@ -80,7 +87,7 @@ const ChamadosAtivos: React.FC = () => {
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
-              {/* <td>{chamado.descChamado}</td> */}
+              <td>{chamado.suporte?.nomeUsuario || ''}</td>
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
               <td>{chamado.usuario.nomeUsuario}</td>
               <td>{chamado.usuario.emailUsuario}</td>

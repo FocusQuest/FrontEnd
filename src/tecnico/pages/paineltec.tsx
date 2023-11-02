@@ -8,8 +8,23 @@ interface Chamado {
   nomeChamado: string;
   descChamado: string;
   dataAberturaChamado: string;
-  idSuporte: number;
-}
+  idSuporte: string;
+  usuario: {
+    id: number;
+    nomeUsuario: string;
+    emailUsuario: string;
+    telefoneUsuario: string;
+  };
+  andamento: {
+    idAndamento: number,
+    descAndamento: string
+    prioridadeAndamento: string
+  };
+  suporte: {
+    id: number,
+    nomeUsuario: string 
+  }
+};
 
 function PainelTec() {
   const [chamados, setChamados] = useState<Chamado[]>([]);
@@ -17,6 +32,7 @@ function PainelTec() {
 
   useEffect(() => {
     const urls = [
+      'http://localhost:3000/chamados/andamento/1',
       'http://localhost:3000/chamados/andamento/2',
       'http://localhost:3000/chamados/andamento/3'
     ];
@@ -86,6 +102,7 @@ function PainelTec() {
             <th>Técnico Responsável</th>
             <th>Data da abertura</th>
             <th>Status</th>
+            <th>Prioridade</th>
           </tr>
         </thead>
         <tbody>
@@ -93,14 +110,14 @@ function PainelTec() {
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
-              <td>{chamado.idSuporte}</td> {/* Lógica para exibir o Id do técnico responsável, precisa puxar o nome */}
+              <td>{chamado.suporte?.nomeUsuario || ''}</td> {/* Lógica para exibir o Id do técnico responsável, precisa puxar o nome */}
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
+              <td>{chamado.andamento.descAndamento}</td>
               <td>
                 <button onClick={() => handleButtonClick(chamado.id)}>
                   Andamento
                 </button>
-              </td>
-             
+              </td>             
               </tr>
           ))}
         </tbody>
