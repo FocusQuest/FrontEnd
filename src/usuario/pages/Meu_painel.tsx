@@ -9,6 +9,7 @@ interface Chamado {
   descChamado: string;
   dataAberturaChamado: string;
   idSuporte: string;
+  idUsuario: number;
   usuario: {
     id: number;
     nomeUsuario: string;
@@ -20,68 +21,82 @@ interface Chamado {
     descAndamento: string
     prioridadeAndamento: string
   };
-};
-
-function Painel() {
-  const [chamados, setChamados] = useState<Chamado[]>([]);
-  const userId = localStorage.getItem("idUsuario"); 
-
- 
-const fetchChamados = async () => {
-  try {
-    const response = await axios.get<Chamado[]>(
-      `http://localhost:3000/chamados/usuario/${userId}`,
-    );
-    setChamados(response.data.slice(0, 5)); // Limita para os 5 primeiros chamados
-  } catch (error) {
-    console.error(error);
+  suporte: {
+    id: number,
+    nomeUsuario: string 
   }
 };
 
+function PainelTec() {
+  const [chamados, setChamados] = useState<Chamado[]>([]);
+  const [counts, setCounts] = useState<number[]>([]);
 
   useEffect(() => {
-    fetchChamados();
+    const urls = [
+      'http://localhost:3000/chamados/andamento/1',
+      'http://localhost:3000/chamados/andamento/2',
+      'http://localhost:3000/chamados/andamento/3',
+      'http://localhost:3000/chamados/andamento/4'
+
+    ];
+  
+    const fetchData = async () => {
+      try {
+        const responses = await Promise.all(urls.map(url => axios.get(url)));
+        const chamadosData = responses.flatMap(response => response.data);
+        setChamados(chamadosData);
+
+
+        const counts = responses.map(response => response.data.length);
+        setCounts(counts);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+      
+    fetchData();
   }, []);
-
-  const handleButtonClick = (id: number) => {
-    // Lógica para lidar com o clique do botão
-    console.log(`Botão 'Andamento' clicado para o chamado ${id}`);
-  };
-
   const formatarData = (data: string) => {
-    const dataAbertura = new Date(data);
-    const dia = String(dataAbertura.getDate()).padStart(2, '0');
-    const mes = String(dataAbertura.getMonth() + 1).padStart(2, '0');
-    const ano = String(dataAbertura.getFullYear()).slice(-2);
-    const hora = String(dataAbertura.getHours()).padStart(2, '0');
-    const minutos = String(dataAbertura.getMinutes()).padStart(2, '0');
-    const segundos = String(dataAbertura.getSeconds()).padStart(2, '0');
-    return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
-  };
+        const dataAbertura = new Date(data);
+        const dia = String(dataAbertura.getDate()).padStart(2, '0');
+        const mes = String(dataAbertura.getMonth() + 1).padStart(2, '0');
+        const ano = String(dataAbertura.getFullYear()).slice(-2);
+        const hora = String(dataAbertura.getHours()).padStart(2, '0');
+        const minutos = String(dataAbertura.getMinutes()).padStart(2, '0');
+        const segundos = String(dataAbertura.getSeconds()).padStart(2, '0');
+        return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
+      };
+
+      const handleButtonClick = (id: number) => {
+        // Lógica para lidar com o clique do botão
+        console.log(`Botão 'Andamento' clicado para o Chamado ${id}`);
+      };
+
 
   return (
     <div>
       <h2>Meu Painel</h2>
+      {/* {localStorage.getItem("idUsuario")}  */}
       <hr></hr>
       <div className="containerBoxes">
         <div className="box" id="box2">
           <div className="box-content">
-            <h2>Chamados Abertos</h2>
-            <p>10</p>
+            <h2>Chamados Novos</h2>
+            <h2>{counts[0]}</h2>
           </div>
         </div>
 
         <div className="box" id="box1">
           <div className="box-content">
-            <h2>Chamados Atrasados</h2>
-            <p>5</p>
+            <h2>Chamados Abertos</h2>
+            <h2>{counts[1]}</h2>
           </div>
         </div>
 
         <div className="box" id="box3">
           <div className="box-content">
-            <h2>Chamados Concluídos</h2>
-            <p>3</p>
+            <h2>Chamados atrasados</h2>
+            <h2>{counts[2]}</h2>
           </div>
         </div>
       </div>
@@ -92,25 +107,27 @@ const fetchChamados = async () => {
           <tr>
             <th>Número do Chamado</th>
             <th>Assunto</th>
-            <th>Técnico responsável</th>
+            <th>Técnico Responsável</th>
             <th>Data da abertura</th>
             <th>Status</th>
+            <th>Prioridade</th>
           </tr>
         </thead>
         <tbody>
-          {chamados.map((chamado) => (
+          {chamados.filter((chamado) => chamado.usuario.id === parseInt(String(localStorage.getItem("idUsuario"))))
+          .map((chamado) => (
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
-              <td>{chamado.idSuporte}</td>
+              <td>{chamado.suporte?.nomeUsuario || ''}</td> {/* Lógica para exibir o Id do técnico responsável, precisa puxar o nome */}
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
+              <td>{chamado.andamento.descAndamento}</td>
               <td>
                 <button onClick={() => handleButtonClick(chamado.id)}>
                   Andamento
                 </button>
-              </td>
-              {/* Render other properties here */}
-            </tr>
+              </td>             
+              </tr>
           ))}
         </tbody>
       </table>
@@ -118,4 +135,4 @@ const fetchChamados = async () => {
   );
 }
 
-export default Painel;
+export default PainelTec;
