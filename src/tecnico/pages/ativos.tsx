@@ -25,6 +25,7 @@ const ChamadosAtivos: React.FC = () => {
 
   useEffect(() => {
     const urls = [
+      'http://localhost:3000/chamados/andamento/1',
       'http://localhost:3000/chamados/andamento/2',
       'http://localhost:3000/chamados/andamento/3'
     ];
@@ -83,6 +84,7 @@ const ChamadosAtivos: React.FC = () => {
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
               <td>{chamado.usuario.nomeUsuario}</td>
               <td>{chamado.usuario.emailUsuario}</td>
+              <td>{chamado.andamento.descAndamento}</td>
               <td><button onClick={() => handleButtonClick(chamado.id)}>Andamento</button></td>
               <td>{chamado.andamento.prioridadeAndamento }</td> {/* retornará a prioridade que o adm atribuir */}
             </tr>
