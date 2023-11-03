@@ -96,12 +96,12 @@ function PainelTec() {
             <h2>{counts[2]}</h2>
           </div>
         </div>
-        {/* <div className="box" id="box4">
+        <div className="box" id="box4">
           <div className="box-content">
             <h2>Chamados Concluídos</h2>
             <h2>{counts[3]}</h2>
           </div>
-        </div> */}
+        </div>
       </div>
       <h2>Chamados recentes</h2>
       <hr></hr>

@@ -116,8 +116,8 @@ function AndamentoTecnico() {
           <span className="description">Sala</span>
           <input
             type="text"
-            placeholder=""
-            value="idLab"
+            placeholder="idLab"
+            value=""
             readOnly
           />
         </div>
@@ -125,30 +125,39 @@ function AndamentoTecnico() {
           <span className="description">Dispositivo</span>
           <input
             type="text"
-            placeholder=""
-            value="idComputador"
+            placeholder="idComputador"
+            value=""
             readOnly
           />
         </div>
         
-        <div className="LabelS">
-          <span className="description">Status </span>
-        </div>
-        <div className="checkbox-group">
-          
         
-          <input type="checkbox" id="checkbox1" name="checkbox1" />
-          <label htmlFor="checkbox1">Concluído</label>
-
-          <input type="checkbox" id="checkbox2" name="checkbox2" />
-          <label htmlFor="checkbox2">Aguardando</label>
-
-          <input type="checkbox" id="checkbox3" name="checkbox3" />
-          <label htmlFor="checkbox3">Atrasado</label>
-          
+        <div className="checkbox-group">
+        <div className="LabelSt">
+          <span className="description">Status</span>
+          <input
+            type="text"
+            placeholder="status"
+            value=""
+            readOnly
+          />
         </div>
+        <div className="LabelSt">
+          <span className="description">Prioridade</span>
+          <input
+            type="text"
+            placeholder="prioridade"
+            value=""
+            readOnly
+          />
+        </div>
+        </div>
+        
+        {/* <div className="LabelS">
+          <span className="description">Status </span>
+        </div> */}
 
-        <div className="LabelS">
+        {/* <div className="LabelS">
           <span className="description">Prioridade </span>
         </div>
         <div className="checkbox-group">
@@ -163,7 +172,7 @@ function AndamentoTecnico() {
           <input type="checkbox" id="checkbox3" name="checkbox3" />
           <label htmlFor="checkbox3">Baixa</label>
           
-        </div>
+        </div> */}
 
         <div className="LabelS">
           <label>Andamento</label>

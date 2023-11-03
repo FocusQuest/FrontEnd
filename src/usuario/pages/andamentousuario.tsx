@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../css/estilos.css";
 import "../../css/table.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 interface Chamado {
   id: number;
@@ -29,32 +29,21 @@ interface Chamado {
 }
 
 function AndamentoUsuario() {
-  const [chamados, setChamados] = useState<Chamado[]>([]);
-  const [counts, setCounts] = useState<number[]>([]);
+  const [chamado, setChamado] = useState<Chamado | null>(null);
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    const urls = [
-      "http://localhost:3000/chamados/andamento/1",
-      "http://localhost:3000/chamados/andamento/2",
-      "http://localhost:3000/chamados/andamento/3",
-      "http://localhost:3000/chamados/andamento/4"
-    ];
-
     const fetchData = async () => {
       try {
-        const responses = await Promise.all(urls.map(url => axios.get(url)));
-        const chamadosData = responses.flatMap(response => response.data);
-        setChamados(chamadosData);
-
-        const counts = responses.map(response => response.data.length);
-        setCounts(counts);
+        const response = await axios.get(`http://localhost:3000/chamados/${id}`);
+        setChamado(response.data);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   const formatarData = (data: string) => {
     const dataAbertura = new Date(data);
@@ -69,7 +58,7 @@ function AndamentoUsuario() {
 
   return (
     <div>
-      <h2>Chamado nº </h2>
+      <h2>Chamado nº {chamado?.id}</h2>
       <hr />
       <div className="containerForm">
         <div className="LabelS">
@@ -77,7 +66,7 @@ function AndamentoUsuario() {
           <input
             type="text"
             placeholder=""
-            value={chamados[0]?.usuario.nomeUsuario || ""}
+            value={chamado?.usuario.nomeUsuario || ""}
             readOnly
           />
         </div>
@@ -87,7 +76,7 @@ function AndamentoUsuario() {
           <input
             type="text"
             placeholder=""
-            value={formatarData(chamados[0]?.dataAberturaChamado || "")}
+            value={formatarData(chamado?.dataAberturaChamado || "")}
             readOnly
           />
         </div>
@@ -97,7 +86,7 @@ function AndamentoUsuario() {
           <input
             type="text"
             placeholder=""
-            value={chamados[0]?.nomeChamado || ""}
+            value={chamado?.nomeChamado || ""}
             readOnly
           />
         </div>
@@ -107,7 +96,7 @@ function AndamentoUsuario() {
           <textarea
             className="descricao-input"
             placeholder=""
-            value={chamados[0]?.descChamado || ""}
+            value={chamado?.descChamado || ""}
             readOnly
           ></textarea>
         </div>
@@ -116,8 +105,8 @@ function AndamentoUsuario() {
           <span className="description">Sala</span>
           <input
             type="text"
-            placeholder=""
-            value="idLab"
+            placeholder="idLab"
+            value=""
             readOnly
           />
         </div>
@@ -125,13 +114,34 @@ function AndamentoUsuario() {
           <span className="description">Dispositivo</span>
           <input
             type="text"
-            placeholder=""
-            value="idComputador"
+            placeholder="idComputador"
+            value=""
             readOnly
           />
         </div>
         
-        <div className="LabelS">
+        <div className="checkbox-group">
+        <div className="LabelSt">
+          <span className="description">Status</span>
+          <input
+            type="text"
+            placeholder="status"
+            value=""
+            readOnly
+          />
+        </div>
+        <div className="LabelSt">
+          <span className="description">Prioridade</span>
+          <input
+            type="text"
+            placeholder="prioridade"
+            value=""
+            readOnly
+          />
+        </div>
+        </div>
+
+        {/* <div className="LabelS">
           <span className="description">Status </span>
         </div>
         <div className="checkbox-group">
@@ -146,9 +156,9 @@ function AndamentoUsuario() {
           <input type="checkbox" id="checkbox3" name="checkbox3" />
           <label htmlFor="checkbox3">Atrasado</label>
           
-        </div>
+        </div> */}
 
-        <div className="LabelS">
+        {/* <div className="LabelS">
           <span className="description">Prioridade </span>
         </div>
         <div className="checkbox-group">
@@ -163,33 +173,17 @@ function AndamentoUsuario() {
           <input type="checkbox" id="checkbox3" name="checkbox3" />
           <label htmlFor="checkbox3">Baixa</label>
           
-        </div>
+        </div> */}
 
         <div className="LabelS">
           <label>Andamento</label>
           <textarea
             className="descricao-input"
             placeholder="Andamento do chamado"
+            value={chamado?.andamento.descAndamento || ""}
             readOnly
           ></textarea>
         </div>
-
-        {/* Render the chamados data */}
-        {/* {chamados.map(chamado => (
-          <div key={chamado.id}>
-            <h3>{chamado.nomeChamado}</h3>
-            <p>{chamado.descChamado}</p>
-            <p>Data de Abertura: {formatarData(chamado.dataAberturaChamado)}</p>
-            <p>ID do Suporte: {chamado.idSuporte}</p>
-            <p>ID do Usuário: {chamado.idUsuario}</p>
-            <p>Nome do Usuário: {chamado.usuario.nomeUsuario}</p>
-            <p>Email do Usuário: {chamado.usuario.emailUsuario}</p>
-            <p>Telefone do Usuário: {chamado.usuario.telefoneUsuario}</p>
-            <p>ID do Andamento: {chamado.andamento.idAndamento}</p>
-            <p>Descrição do Andamento: {chamado.andamento.descAndamento}</p>
-            <p>Prioridade do Andamento: {chamado.andamento.prioridadeAndamento}</p>
-          </div>
-        ))} */}
       </div>
     </div>
   );

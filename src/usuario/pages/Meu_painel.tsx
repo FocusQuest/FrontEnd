@@ -131,10 +131,10 @@ function Painel() {
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
               <td>
               <Link to={`/usuario/Andamento_usuario`}>
-                    <button onClick={() => handleButtonClick(chamado.id)}>
-                      {chamado.andamento.descAndamento}
-                    </button>
-              </Link>        
+                <button onClick={() => handleButtonClick(chamado.id)}>
+                  {chamado.andamento.descAndamento}
+                </button>
+              </Link>  
               </td>             
               <td></td>
               </tr>
