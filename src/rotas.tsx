@@ -25,6 +25,8 @@ import AdicionaFerramenta from './adm/pages/adicionar_ferramenta';
 import RedefineSenha from './adm/pages/redefinir_senha';
 import AdicionarServico from './adm/pages/adicionar_servico';
 import Inicio from './inicio/inicio';
+import AndamentoTecnico from './tecnico/pages/andamentotecnico';
+import AndamentoUsuario from './usuario/pages/andamentousuario';
 
 /**
  * Renders the `Item` component if the user is signed in, otherwise renders the `Signin` component.
@@ -56,6 +58,7 @@ const Rotas = (): JSX.Element => {
                             <Route path="Abrir_chamado" element={<Formulario/>} />
                             <Route path="Meus_chamados" element={<ChamadosUsuarios/>} />
                             <Route path="Sucesso" element={<ChamadoEnviado />} /> 
+                            <Route path="Andamento_usuario" element={<AndamentoUsuario/>} />
                         </Route>
                         <Route path="/adm" element={<BaseAdm />}>
                             <Route path="Usuarios" element={<UsuariosList />} /> 
@@ -72,7 +75,8 @@ const Rotas = (): JSX.Element => {
                         <Route path="/tecnico" element={<BaseTecnico />}>
                             <Route path="Painel_tecnico" element={<PainelTec />} /> 
                             <Route path="Ferramentas_tec" element={<FerramentasTec />} />        
-                            <Route path="Ativos" element={<ChamadosAtivos />} />    
+                            <Route path="Ativos" element={<ChamadosAtivos />} />
+                            <Route path="Andamento_tecnico" element={<AndamentoTecnico/>} />    
                             
                         </Route>
                     </Routes>

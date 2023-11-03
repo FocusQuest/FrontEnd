@@ -25,12 +25,13 @@ table td {
 
 /* Estilo para o botão "Andamento" na tabela */
 table button {
-  background-color: #333; /* Cor de fundo escura para o botão */
-  color: #fff; /* Texto branco */
-  padding: 5px 10px; /* Espaçamento interno menor */
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 100px; /* Definindo uma largura fixa de 150 pixels */
 }
 
 table button:hover {

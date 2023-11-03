@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../css/estilos.css";
 import "../../css/table.css";
+import { Link } from "react-router-dom";
+
 
 interface Chamado {
   id: number;
@@ -34,14 +36,15 @@ function PainelTec() {
     const urls = [
       'http://localhost:3000/chamados/andamento/1',
       'http://localhost:3000/chamados/andamento/2',
-      'http://localhost:3000/chamados/andamento/3'
+      'http://localhost:3000/chamados/andamento/3',
+     
     ];
   
     const fetchData = async () => {
       try {
         const responses = await Promise.all(urls.map(url => axios.get(url)));
         const chamadosData = responses.flatMap(response => response.data);
-        setChamados(chamadosData);
+        setChamados(chamadosData);//         
         const counts = responses.map(response => response.data.length);
         setCounts(counts);
       } catch (error) {
@@ -93,6 +96,12 @@ function PainelTec() {
             <h2>{counts[2]}</h2>
           </div>
         </div>
+        {/* <div className="box" id="box4">
+          <div className="box-content">
+            <h2>Chamados Concluídos</h2>
+            <h2>{counts[3]}</h2>
+          </div>
+        </div> */}
       </div>
       <h2>Chamados recentes</h2>
       <hr></hr>
@@ -114,12 +123,12 @@ function PainelTec() {
               <td>{chamado.nomeChamado}</td>
               <td>{chamado.suporte?.nomeUsuario || ''}</td> {/* Lógica para exibir o Id do técnico responsável, precisa puxar o nome */}
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
-              <td>{chamado.andamento.descAndamento}</td>
-              <td>
-                <button onClick={() => handleButtonClick(chamado.id)}>
-                  Andamento
-                </button>
-              </td>             
+              <td>             
+                <Link to="/tecnico/Andamento_tecnico">
+                  <button onClick={() => handleButtonClick(chamado.id)}>{chamado.andamento.descAndamento}</button>
+                </Link>   
+              </td> 
+              <td>{chamado.andamento.prioridadeAndamento }</td> {/* retornará a prioridade que o adm atribuir */}            
               </tr>
           ))}
         </tbody>

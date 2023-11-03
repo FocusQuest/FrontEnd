@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 interface Chamado {
@@ -91,8 +92,11 @@ const ChamadosAtivos: React.FC = () => {
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
               <td>{chamado.usuario.nomeUsuario}</td>
               <td>{chamado.usuario.emailUsuario}</td>
-              <td>{chamado.andamento.descAndamento}</td>
-              <td><button onClick={() => handleButtonClick(chamado.id)}>Andamento</button></td>
+              <td>
+              <Link to="/tecnico/Andamento_tecnico">
+                  <button onClick={() => handleButtonClick(chamado.id)}>{chamado.andamento.descAndamento}</button>
+                </Link> 
+              </td>
               <td>{chamado.andamento.prioridadeAndamento }</td> {/* retornará a prioridade que o adm atribuir */}
             </tr>
           ))}

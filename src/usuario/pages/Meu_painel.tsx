@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../css/estilos.css";
 import "../../css/table.css";
+import { Link} from "react-router-dom";
+
 
 interface Chamado {
   id: number;
@@ -27,7 +29,7 @@ interface Chamado {
   }
 };
 
-function PainelTec() {
+function Painel() {
   const [chamados, setChamados] = useState<Chamado[]>([]);
   const [counts, setCounts] = useState<number[]>([]);
 
@@ -86,17 +88,23 @@ function PainelTec() {
           </div>
         </div>
 
-        <div className="box" id="box1">
+        <div className="box" id="box3">
           <div className="box-content">
             <h2>Chamados Abertos</h2>
             <h2>{counts[1]}</h2>
           </div>
         </div>
 
-        <div className="box" id="box3">
+        <div className="box" id="box1">
           <div className="box-content">
-            <h2>Chamados atrasados</h2>
+            <h2>Chamados Atrasados</h2>
             <h2>{counts[2]}</h2>
+          </div>
+        </div>
+        <div className="box" id="box4">
+          <div className="box-content">
+            <h2>Chamados Concluídos</h2>
+            <h2>{counts[3]}</h2>
           </div>
         </div>
       </div>
@@ -121,12 +129,14 @@ function PainelTec() {
               <td>{chamado.nomeChamado}</td>
               <td>{chamado.suporte?.nomeUsuario || ''}</td> {/* Lógica para exibir o Id do técnico responsável, precisa puxar o nome */}
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
-              <td>{chamado.andamento.descAndamento}</td>
               <td>
-                <button onClick={() => handleButtonClick(chamado.id)}>
-                  Andamento
-                </button>
+              <Link to={`/usuario/Andamento_usuario`}>
+                    <button onClick={() => handleButtonClick(chamado.id)}>
+                      {chamado.andamento.descAndamento}
+                    </button>
+              </Link>        
               </td>             
+              <td></td>
               </tr>
           ))}
         </tbody>
@@ -135,4 +145,4 @@ function PainelTec() {
   );
 }
 
-export default PainelTec;
+export default Painel;

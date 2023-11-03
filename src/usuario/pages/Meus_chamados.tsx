@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../css/estilos.css";
 import "../../css/table.css";
+import { Link } from "react-router-dom";
 
 interface Chamado {
   id: number;
@@ -9,6 +10,16 @@ interface Chamado {
   descChamado: string;
   dataAberturaChamado: string;
   idSuporte: number;
+  suporte: {
+    id: number,
+    nomeUsuario: string 
+  }
+  andamento: {
+    idAndamento: number,
+    descAndamento: string
+    prioridadeAndamento: string
+  };
+  
   
 }
 
@@ -70,13 +81,16 @@ function ChamadosUsuarios() {
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
-              <td>{chamado.idSuporte}</td>
+              <td>{chamado.suporte?.nomeUsuario || ''}</td> 
               <td>
-                <button onClick={() => handleButtonClick(chamado.id)}>
-                  Andamento
-                </button>
+              <Link to={`/usuario/Andamento_usuario/${chamado.id}`}>
+                    <button onClick={() => handleButtonClick(chamado.id)}>
+                      {/* {chamado.andamento.descAndamento} */}
+                    </button>
+              </Link>                    
               </td>
-              <td></td>
+               {/*<td>{chamado.andamento.prioridadeAndamento }</td> {/* retornará a prioridade que o adm atribuir */}
+               <td></td>
             </tr>
           ))}
         </tbody>
