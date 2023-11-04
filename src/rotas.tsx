@@ -76,7 +76,7 @@ const Rotas = (): JSX.Element => {
                             <Route path="Painel_tecnico" element={<PainelTec />} /> 
                             <Route path="Ferramentas_tec" element={<FerramentasTec />} />        
                             <Route path="Ativos" element={<ChamadosAtivos />} />
-                            <Route path="Andamento_tecnico" element={<AndamentoTecnico/>} />    
+                            <Route path="Andamento_tecnico/:id" element={<AndamentoTecnico/>} />    
                             
                         </Route>
                     </Routes>

@@ -37,6 +37,7 @@ function PainelTec() {
       'http://localhost:3000/chamados/andamento/1',
       'http://localhost:3000/chamados/andamento/2',
       'http://localhost:3000/chamados/andamento/3',
+      'http://localhost:3000/chamados/andamento/4'
      
     ];
   
@@ -124,12 +125,13 @@ function PainelTec() {
               <td>{chamado.suporte?.nomeUsuario || ''}</td> {/* Lógica para exibir o Id do técnico responsável, precisa puxar o nome */}
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
               <td>             
-                <Link to="/tecnico/Andamento_tecnico">
-                  <button onClick={() => handleButtonClick(chamado.id)}>{chamado.andamento.descAndamento}</button>
-                </Link>   
+              <Link to={`/tecnico/Andamento_tecnico/${chamado.id}`}>
+                <button onClick={() => handleButtonClick(chamado.id)}>{chamado.andamento.descAndamento}</button>
+              </Link>
               </td> 
               <td>{chamado.andamento.prioridadeAndamento }</td> {/* retornará a prioridade que o adm atribuir */}            
               </tr>
+              
           ))}
         </tbody>
       </table>
