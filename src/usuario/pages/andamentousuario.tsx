@@ -184,46 +184,12 @@ function AndamentoUsuario() {
         <button onClick={handleClaimChamado}>{buttonText || "Reabrir chamado"}</button>
         </div>
         
-        {/* <div className="LabelS">
-          <span className="description">Status </span>
-        </div>
-        <div className="checkbox-group">
-          
-        
-          <input type="checkbox" id="checkbox1" name="checkbox1" />
-          <label htmlFor="checkbox1">Concluído</label>
-
-          <input type="checkbox" id="checkbox2" name="checkbox2" />
-          <label htmlFor="checkbox2">Aguardando</label>
-
-          <input type="checkbox" id="checkbox3" name="checkbox3" />
-          <label htmlFor="checkbox3">Atrasado</label>
-          
-        </div> */}
-
-        {/* <div className="LabelS">
-          <span className="description">Prioridade </span>
-        </div>
-        <div className="checkbox-group">
-          
-        
-          <input type="checkbox" id="checkbox1" name="checkbox1" />
-          <label htmlFor="checkbox1">Alta</label>
-
-          <input type="checkbox" id="checkbox2" name="checkbox2" />
-          <label htmlFor="checkbox2">Média</label>
-
-          <input type="checkbox" id="checkbox3" name="checkbox3" />
-          <label htmlFor="checkbox3">Baixa</label>
-          
-        </div> */}
-
         <div className="LabelS">
           <label>Andamento</label>
           <textarea
             className="descricao-input"
             placeholder="Andamento do chamado"
-            value={chamado?.andamento.descAndamento || ""}
+            // value={chamado?.andamento.descAndamento || ""}
             readOnly
           ></textarea>
         </div>

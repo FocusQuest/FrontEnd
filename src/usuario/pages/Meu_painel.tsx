@@ -120,21 +120,24 @@ function Painel() {
           </tr>
         </thead>
         <tbody>
-          {chamados.filter((chamado) => chamado.usuario.id === parseInt(String(localStorage.getItem("idUsuario"))))
-          .map((chamado) => (
-            <tr key={chamado.id}>
-              <td>{chamado.id}</td>
-              <td>{chamado.nomeChamado}</td>
-              <td>{chamado.suporte?.nomeUsuario || ''}</td> {/* Lógica para exibir o Id do técnico responsável, precisa puxar o nome */}
-              <td>{formatarData(chamado.dataAberturaChamado)}</td>
-              <td >
-              <Link to={`/usuario/Andamento_usuario/${chamado.id}`}>
-                <button onClick={() => handleButtonClick(chamado.id)}>
-                  {chamado.andamento.descAndamento}
-                </button>
-              </Link>
-              </td>             
-              <td></td>
+          {chamados
+            .filter((chamado) => chamado.usuario.id === parseInt(String(localStorage.getItem("idUsuario"))))
+            .sort((a, b) => new Date(b.dataAberturaChamado).getTime() - new Date(a.dataAberturaChamado).getTime())
+            .slice(0, 5)
+            .map((chamado) => (
+              <tr key={chamado.id}>
+                <td>{chamado.id}</td>
+                <td>{chamado.nomeChamado}</td>
+                <td>{chamado.suporte?.nomeUsuario || ''}</td>
+                <td>{formatarData(chamado.dataAberturaChamado)}</td>
+                <td >
+                <Link to={`/usuario/Andamento_usuario/${chamado.id}`}>
+                  <button onClick={() => handleButtonClick(chamado.id)}>
+                    {chamado.andamento.descAndamento}
+                  </button>
+                </Link>
+                </td>             
+                <td></td>
               </tr>
           ))}
         </tbody>

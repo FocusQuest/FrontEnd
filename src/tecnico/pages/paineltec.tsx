@@ -120,7 +120,10 @@ function PainelTec() {
           </tr>
         </thead>
         <tbody>
-          {chamados.map((chamado) => (
+              {chamados
+          .sort((a, b) => new Date(b.dataAberturaChamado).getTime() - new Date(a.dataAberturaChamado).getTime())
+          .slice(0, 5)
+          .map((chamado) => (
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
@@ -135,8 +138,7 @@ function PainelTec() {
               </td> 
               <td>{chamado.andamento.prioridadeAndamento }</td> {/* retornará a prioridade que o adm atribuir */}            
               </tr>
-              
-          ))}
+        ))}
         </tbody>
       </table>
     </div>
