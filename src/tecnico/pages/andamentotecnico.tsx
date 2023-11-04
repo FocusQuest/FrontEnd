@@ -150,7 +150,7 @@ function AndamentoTecnico() {
           <input
             type="text"
             placeholder="Técnico"
-            value={chamado ? chamado.suporte.nomeUsuario: ""}
+            value={chamado && chamado.suporte ? chamado.suporte.nomeUsuario : ""}
             readOnly
           />
         </div>

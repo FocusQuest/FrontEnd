@@ -90,7 +90,7 @@ const ChamadosAtivos: React.FC = () => {
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
-              <td>{chamado.suporte?.nomeUsuario || ''}</td> 
+              <td>{chamado.suporte ? chamado.suporte.nomeUsuario : ''}</td> 
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
               <td>{chamado.usuario.nomeUsuario}</td>
               <td>{chamado.usuario.emailUsuario}</td>
