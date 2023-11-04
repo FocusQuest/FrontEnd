@@ -29,9 +29,28 @@ interface Chamado {
 }
 
 function AndamentoTecnico() {
+  
   const { id } = useParams<{ id: string }>();
   const [chamado, setChamado] = useState<Chamado | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [buttonText, setButtonText] = useState("");
+  const handleClaimChamado = async () => {
+    
+    const idTecnico = localStorage.getItem("idUsuario")!;
+    try {
+      const response = await axios.patch(`http://localhost:3000/chamados/${id}`, {
+        idSuporte: parseInt(idTecnico),
+        idAndamento: 2,
+        tratInicio: ""
+      });
+      if (response.status === 200) {
+        setButtonText("Chamado assumido!");
+      }
+      // Handle the response if needed
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -163,8 +182,8 @@ function AndamentoTecnico() {
             readOnly
           />
         </div>
+        <button onClick={handleClaimChamado}>{buttonText || "Assumir chamado"}</button>
         </div>
-        
         <div className="LabelS">
           <span className="description">Status </span>
         </div>
