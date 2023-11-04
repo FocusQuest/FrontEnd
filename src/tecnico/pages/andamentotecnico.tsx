@@ -31,7 +31,7 @@ interface Chamado {
 
 function AndamentoTecnico() {
   
-  const { id } = useParams<{ id: string }>();
+  const { id, prioridade } = useParams<{ id: string, prioridade: string }>();
   const [chamado, setChamado] = useState<Chamado | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [buttonText, setButtonText] = useState("");
