@@ -11,30 +11,15 @@ const CriarUsuario = () => {
   const [email, setEmail] = useState("");
   const [emailConf, setEmailConf] = useState("");
   const [senha, setSenha] = useState("");
-  const [telefone = "", setTelefone] = useState("");
-  const [nivelAcesso = "1", setNivelAcesso] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [nivelAcesso, setNivelAcesso] = useState("1");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { signup } = useAuth();
+  // const { signup } = useAuth();
 
   const handleSignup = async () => {
     try {
-      if (!email || !emailConf || !senha) {
-        setError("Preencha todos os campos");
-        return;
-      } else if (email !== emailConf) {
-        setError("Os e-mails não são iguais");
-        return;
-      }
-
-      const res = signup(email, senha);
-
-      if (res) {
-        setError(res);
-        return;
-      }
-
       const data = {
         nomeUsuario: nome,
         emailUsuario: email,
@@ -42,33 +27,35 @@ const CriarUsuario = () => {
         telefoneUsuario: telefone,
         idNivelAcesso: nivelAcesso,
       };
-
+    
       setNome("");
       setTelefone("");
-      setNivelAcesso("");
-
+      setNivelAcesso("1");
+    
+      console.log(data);
       const responseCadastro = await axios.post(
-        `http://localhost:3000/usuarios`,
-        data
-      );
+          `http://localhost:3000/usuarios`,
+          data);
+    
       if (responseCadastro.status === 201) {
         alert("Usuário cadastrado com sucesso!");
-        navigate("/");
+        navigate("/adm/Usuarios");
       }
-    } catch (error) {}
-  };
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      }
+    }
+  }
 
   return (
     <C.Container>
-      
       <div className="FormContainerCustom">
+        <div>
+          <h2> Abrir chamado</h2>
+        </div>
 
-      <div>
-        <h2> Abrir chamado</h2>
-      </div>
-
-
-      <div className="Label">
+        <div className="Label">
           <span className="DescriptionCustom">Insira o nome:</span>
           <input
             type="text"
@@ -78,7 +65,7 @@ const CriarUsuario = () => {
           />
         </div>
 
-      <div className="Label">
+        <div className="Label">
           <span className="DescriptionCustom">Insira o telefone</span>
           <input
             type="text"
@@ -87,7 +74,6 @@ const CriarUsuario = () => {
             onChange={(e) => [setTelefone(e.target.value), setError("")]}
           />
         </div>
-
         <div className="Label">
           <span className="DescriptionCustom">Insira o email:</span>
           <input
@@ -121,7 +107,8 @@ const CriarUsuario = () => {
         <div className="Label">
           <span className="description">Nível de acesso</span>
           <select
-
+            value={nivelAcesso}
+            onChange={(e) => setNivelAcesso(e.target.value)}
           >
             <option value="0">Selecione...</option>
             <option value="1">Usuário</option>
@@ -130,12 +117,10 @@ const CriarUsuario = () => {
           </select>
         </div>
 
-      </div>
-
-
         <C.labelError>{error}</C.labelError>
         <div className="buttomcontainer">
-        <Button Text="Criar cadastro" onClick={handleSignup} />
+          <Button Text="Criar cadastro" onClick={handleSignup} />
+        </div>
       </div>
     </C.Container>
   );
