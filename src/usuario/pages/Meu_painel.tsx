@@ -38,15 +38,15 @@ function Painel() {
       'http://localhost:3000/chamados/andamento/2',
       'http://localhost:3000/chamados/andamento/3',
       'http://localhost:3000/chamados/andamento/4'
-     
     ];
   
     const fetchData = async () => {
       try {
         const responses = await Promise.all(urls.map(url => axios.get(url)));
         const chamadosData = responses.flatMap(response => response.data);
-        setChamados(chamadosData);//         
-        const counts = responses.map(response => response.data.length);
+        setChamados(chamadosData);
+        const userId = parseInt(String(localStorage.getItem("idUsuario")));
+        const counts = responses.map(response => response.data.filter((chamado: Chamado) => chamado.usuario.id === userId).length);
         setCounts(counts);
       } catch (error) {
         console.error(error);

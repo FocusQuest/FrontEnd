@@ -27,6 +27,7 @@ import AdicionarServico from './adm/pages/adicionar_servico';
 import Inicio from './inicio/inicio';
 import AndamentoTecnico from './tecnico/pages/andamentotecnico';
 import AndamentoUsuario from './usuario/pages/andamentousuario';
+import AndamentoAdm from './adm/pages/andamentoadm';
 
 /**
  * Renders the `Item` component if the user is signed in, otherwise renders the `Signin` component.
@@ -68,7 +69,8 @@ const Rotas = (): JSX.Element => {
                             <Route path="Criar_usuario" element={<CriaUsuario />} />
                             <Route path="Adicionar_serviço" element={<AdicionarServico />} />
                             <Route path="Adicionar_ferramenta" element={<AdicionaFerramenta />} />
-                            <Route path="Redefinir_senha" element={<RedefineSenha />} />                              
+                            <Route path="Redefinir_senha" element={<RedefineSenha />} />     
+                            <Route path="Andamento_adm/:id" element={<AndamentoAdm/>} />                            
 
                                 
                         </Route>
