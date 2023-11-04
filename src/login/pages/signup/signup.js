@@ -28,24 +28,13 @@ const Signup = () => {
         return;
       }
 
-      const res = signup(email, senha);
-
-      if (res) {
-        setError(res);
-        return;
-      }
-
       const data = {
         nomeUsuario: nome,
         emailUsuario: email,
         senhaUsuario: senha,
         telefoneUsuario: telefone,
-        idNivelAcesso: nivelAcesso,
+        nivelAcesso: nivelAcesso,
       };
-
-      setNome("");
-      setTelefone("");
-      setNivelAcesso("");
 
       const responseCadastro = await axios.post(
         `http://localhost:3000/usuarios`,

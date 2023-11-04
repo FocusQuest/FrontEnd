@@ -25,18 +25,15 @@ const CriarUsuario = () => {
         emailUsuario: email,
         senhaUsuario: senha,
         telefoneUsuario: telefone,
-        idNivelAcesso: nivelAcesso,
+        nivelAcesso: nivelAcesso,
       };
-    
-      setNome("");
-      setTelefone("");
-      setNivelAcesso("1");
-    
       console.log(data);
+
       const responseCadastro = await axios.post(
-          `http://localhost:3000/usuarios`,
-          data);
-    
+        `http://localhost:3000/usuarios`,
+        data,
+      );
+
       if (responseCadastro.status === 201) {
         alert("Usuário cadastrado com sucesso!");
         navigate("/adm/Usuarios");
@@ -46,7 +43,7 @@ const CriarUsuario = () => {
         setError(error.message);
       }
     }
-  }
+  };
 
   return (
     <C.Container>
@@ -111,9 +108,9 @@ const CriarUsuario = () => {
             onChange={(e) => setNivelAcesso(e.target.value)}
           >
             <option value="0">Selecione...</option>
-            <option value="1">Usuário</option>
+            <option value="3">Usuário</option>
             <option value="2">Técnico</option>
-            <option value="3">Administrador</option>
+            <option value="1">Administrador</option>
           </select>
         </div>
 
