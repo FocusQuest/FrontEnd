@@ -58,7 +58,7 @@ const Rotas = (): JSX.Element => {
                             <Route path="Abrir_chamado" element={<Formulario/>} />
                             <Route path="Meus_chamados" element={<ChamadosUsuarios/>} />
                             <Route path="Sucesso" element={<ChamadoEnviado />} /> 
-                            <Route path="Andamento_usuario" element={<AndamentoUsuario/>} />
+                            <Route path="/usuario/Andamento_usuario/:id" element={<AndamentoUsuario/>} />
                         </Route>
                         <Route path="/adm" element={<BaseAdm />}>
                             <Route path="Usuarios" element={<UsuariosList />} /> 
