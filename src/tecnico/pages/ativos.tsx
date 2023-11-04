@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "../../css/estilos.css";
+import "../../css/table.css";
+import { Link } from "react-router-dom";
 
 
 interface Chamado {
@@ -75,7 +77,7 @@ const ChamadosAtivos: React.FC = () => {
           <tr>
             <th>Número do Chamado</th>
             <th>Assunto</th>
-            <th>Técnico Responsável</th>
+<th>Técnico Responsável</th>
             <th>Data da abertura</th>
             <th>Nome do usuario</th>
             <th>E-mail do Usuário</th>
@@ -84,27 +86,28 @@ const ChamadosAtivos: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {chamados.map((chamado) => (
+        {chamados.map((chamado) => (
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
-              <td>{chamado.suporte?.nomeUsuario || ''}</td>
+              <td>{chamado.suporte?.nomeUsuario || ''}</td> 
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
               <td>{chamado.usuario.nomeUsuario}</td>
               <td>{chamado.usuario.emailUsuario}</td>
-              <td>
-              <Link to="/tecnico/Andamento_tecnico">
-                  <button onClick={() => handleButtonClick(chamado.id)}>{chamado.andamento.descAndamento}</button>
-                </Link> 
-              </td>
-              <td>{chamado.andamento.prioridadeAndamento }</td> {/* retornará a prioridade que o adm atribuir */}
-            </tr>
+              <td>             
+              <Link to={`/tecnico/Andamento_tecnico/${chamado.id}`}>
+                <button onClick={() => handleButtonClick(chamado.id)}>{chamado.andamento.descAndamento}</button>
+              </Link>
+              </td> 
+              <td>{chamado.andamento.prioridadeAndamento }</td> {/* retornará a prioridade que o adm atribuir */}            
+              </tr>
+              
           ))}
         </tbody>
       </table>
     </div>
   );
-};
+}
 
 export default ChamadosAtivos;
             

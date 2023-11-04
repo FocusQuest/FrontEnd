@@ -113,6 +113,8 @@ function PainelTec() {
             <th>Assunto</th>
             <th>Técnico Responsável</th>
             <th>Data da abertura</th>
+            <th>Nome do usuario</th>
+            <th>E-mail do Usuário</th>
             <th>Status</th>
             <th>Prioridade</th>
           </tr>
@@ -122,8 +124,10 @@ function PainelTec() {
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>
-              <td>{chamado.suporte?.nomeUsuario || ''}</td> {/* Lógica para exibir o Id do técnico responsável, precisa puxar o nome */}
+              <td>{chamado.suporte?.nomeUsuario || ''}</td> 
               <td>{formatarData(chamado.dataAberturaChamado)}</td>
+              <td>{chamado.usuario.nomeUsuario}</td>
+              <td>{chamado.usuario.emailUsuario}</td>
               <td>             
               <Link to={`/tecnico/Andamento_tecnico/${chamado.id}`}>
                 <button onClick={() => handleButtonClick(chamado.id)}>{chamado.andamento.descAndamento}</button>
