@@ -132,7 +132,7 @@ interface Chamado {
 
 function Painel() {
   const [chamados, setChamados] = useState<Chamado[]>([]);
-  const [counts, setCounts] = useState<number[]>([]);
+  
 
   useEffect(() => {
     const urls = [
@@ -148,8 +148,7 @@ function Painel() {
         const responses = await Promise.all(urls.map(url => axios.get(url)));
         const chamadosData = responses.flatMap(response => response.data);
         setChamados(chamadosData);//         
-        const counts = responses.map(response => response.data.length);
-        setCounts(counts);
+        
       } catch (error) {
         console.error(error);
       }

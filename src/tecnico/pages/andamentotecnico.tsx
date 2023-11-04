@@ -21,6 +21,7 @@ interface Chamado {
     idAndamento: number;
     descAndamento: string;
     prioridadeAndamento: string;
+    respostaChamado: string;
   };
   suporte: {
     id: number;
@@ -44,7 +45,7 @@ function AndamentoTecnico() {
         tratInicio: ""
       });
       if (response.status === 200) {
-        setButtonText("Chamado assumido!");
+        setButtonText("Chamado assumido");
       }
       // Handle the response if needed
     } catch (error) {
@@ -178,40 +179,32 @@ function AndamentoTecnico() {
           <input
             type="text"
             placeholder="prioridade"
-            value={chamado && chamado.andamento ? chamado.andamento.prioridadeAndamento : ""}
+            value={chamado && chamado.andamento ? chamado.andamento.prioridadeAndamento: ""}
             readOnly
           />
         </div>
         <button onClick={handleClaimChamado}>{buttonText || "Assumir chamado"}</button>
         </div>
-        <div className="LabelS">
-          <span className="description">Status </span>
-        </div>
-        <div className="LabelS">
-          <span className="description">Prioridade </span>
-        </div>
-        <div className="checkbox-group">
-          
         
-          <input type="checkbox" id="checkbox1" name="checkbox1" />
-          <label htmlFor="checkbox1">Alta</label>
-
-          <input type="checkbox" id="checkbox2" name="checkbox2" />
-          <label htmlFor="checkbox2">Média</label>
-
-          <input type="checkbox" id="checkbox3" name="checkbox3" />
-          <label htmlFor="checkbox3">Baixa</label>
-          
-        </div>
 
         <div className="LabelS">
           <label>Andamento</label>
           <textarea
             className="descricao-input"
             placeholder="Andamento do chamado"
+            value={chamado && chamado.andamento ? chamado.andamento.respostaChamado : ""}
             readOnly
           ></textarea>
         </div>
+        <div className="LabelS">
+          <label>Responder chamado</label>
+          <textarea
+            className="descricao-input"
+            placeholder="Responder chamado"
+            
+          ></textarea>
+        </div>
+        <button onClick={handleClaimChamado}>{buttonText || "Responder"}</button>
       </div>
     <div/>
     </div>

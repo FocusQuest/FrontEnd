@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../../css/estilos.css";
-import "../../css/table.css";
 import { Link, useParams } from "react-router-dom";
 
 interface Chamado {
@@ -11,6 +9,8 @@ interface Chamado {
   dataAberturaChamado: string;
   idSuporte: string;
   idUsuario: number;
+  idLab: number;
+  idComputador: number;
   usuario: {
     id: number;
     nomeUsuario: string;
@@ -29,16 +29,37 @@ interface Chamado {
 }
 
 function AndamentoUsuario() {
-  const [chamado, setChamado] = useState<Chamado | null>(null);
   const { id } = useParams<{ id: string }>();
+  const [chamado, setChamado] = useState<Chamado | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [buttonText, setButtonText] = useState("");
+  const handleClaimChamado = async () => {
+    
+    const idTecnico = localStorage.getItem("idUsuario")!;
+    try {
+      const response = await axios.patch(`http://localhost:3000/chamados/${id}`, {
+        idSuporte: parseInt(idTecnico),
+        idAndamento: 2,
+        tratInicio: ""
+      });
+      if (response.status === 200) {
+        setButtonText("Chamado enviado");
+      }
+      // Handle the response if needed
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/chamados/${id}`);
         setChamado(response.data);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
+        setIsLoading(false);
       }
     };
 
@@ -56,17 +77,28 @@ function AndamentoUsuario() {
     return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div>
-      <h2>Chamado nº {chamado?.id}</h2>
+    <div className="LabelS">
+    <span className="description"><h2>Chamado nº </h2></span>
+    <input
+      type="text"
+      placeholder=""
+      value={chamado ? chamado.id : ""}
+      readOnly
+    />
       <hr />
+      {/* {chamado.id} */}
       <div className="containerForm">
         <div className="LabelS">
           <span className="description">Nome do usuário</span>
           <input
             type="text"
             placeholder=""
-            value={chamado?.usuario.nomeUsuario || ""}
+            value={chamado && chamado.usuario ? chamado.usuario.nomeUsuario : ""}
             readOnly
           />
         </div>
@@ -76,7 +108,7 @@ function AndamentoUsuario() {
           <input
             type="text"
             placeholder=""
-            value={formatarData(chamado?.dataAberturaChamado || "")}
+            value={chamado ? formatarData(chamado.dataAberturaChamado) : ""}
             readOnly
           />
         </div>
@@ -86,7 +118,7 @@ function AndamentoUsuario() {
           <input
             type="text"
             placeholder=""
-            value={chamado?.nomeChamado || ""}
+            value={chamado ? chamado.nomeChamado : ""}
             readOnly
           />
         </div>
@@ -96,7 +128,7 @@ function AndamentoUsuario() {
           <textarea
             className="descricao-input"
             placeholder=""
-            value={chamado?.descChamado || ""}
+            value={chamado ? chamado.descChamado: ""}
             readOnly
           ></textarea>
         </div>
@@ -106,7 +138,7 @@ function AndamentoUsuario() {
           <input
             type="text"
             placeholder="idLab"
-            value=""
+            value={chamado ? chamado.idLab: ""}
             readOnly
           />
         </div>
@@ -115,10 +147,11 @@ function AndamentoUsuario() {
           <input
             type="text"
             placeholder="idComputador"
-            value=""
+            value={chamado ? chamado.idComputador: ""}
             readOnly
           />
         </div>
+        
         
         <div className="checkbox-group">
         <div className="LabelSt">
@@ -126,7 +159,16 @@ function AndamentoUsuario() {
           <input
             type="text"
             placeholder="status"
-            value=""
+            value={chamado && chamado.andamento ? chamado.andamento.descAndamento : ""}
+            readOnly
+          />
+        </div>
+        <div className="LabelS">
+          <span className="description">Técnico Responsável</span>
+          <input
+            type="text"
+            placeholder="Técnico"
+            value={chamado && chamado.suporte ? chamado.suporte.nomeUsuario : ""}
             readOnly
           />
         </div>
@@ -135,12 +177,13 @@ function AndamentoUsuario() {
           <input
             type="text"
             placeholder="prioridade"
-            value=""
+            value={chamado && chamado.andamento ? chamado.andamento.prioridadeAndamento : ""}
             readOnly
           />
         </div>
+        <button onClick={handleClaimChamado}>{buttonText || "Reabrir chamado"}</button>
         </div>
-
+        
         {/* <div className="LabelS">
           <span className="description">Status </span>
         </div>
