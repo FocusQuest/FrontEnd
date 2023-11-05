@@ -41,7 +41,8 @@ const ChamadosList: React.FC = () => {
     const urls = [
       'http://localhost:3000/chamados/andamento/1',
       'http://localhost:3000/chamados/andamento/2',
-      'http://localhost:3000/chamados/andamento/3'
+      'http://localhost:3000/chamados/andamento/3',
+      'http://localhost:3000/chamados/andamento/4'
     ];
   
     const fetchData = async () => {
@@ -75,7 +76,7 @@ const ChamadosList: React.FC = () => {
 
   return (
     <div>
-      <h2>Chamados ativos</h2>
+      <h2>Chamados</h2>
       <hr></hr>
       <table>
         <thead>
