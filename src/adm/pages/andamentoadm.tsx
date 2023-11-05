@@ -42,26 +42,25 @@ function AndamentoAdm() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const Button = ({ Text, onClick }: { Text: string, onClick: () => void }) => <button onClick={onClick}>{Text}</button>;
   const [idPrioridade, setidPrioridade] = useState<string>('');
+  const [buttonText, setButtonText] = useState("Atualizar");
   
   
   const [chamados, setChamados] = useState<Chamado[]>([]);
   
-  const handlePrioridadeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  setidPrioridade(event.target.value);
-};
   const handleClick = async () => {
     try {
       const chamadoId = chamado?.id;
       if (chamadoId) {
         const data = {
-          idChamado: chamadoId,
-          idPrioridade: idPrioridade,
+          idPrioridade: Number(idPrioridade), // Converta para número
         };
         console.log("Dados do formulário:", data); // Log the form data
         const response = await axios.patch(`http://localhost:3000/chamados/${chamadoId}`, data);
         console.log("Resposta:", response); // Log the response
         if (response.status === 200) {
-          alert("Prioridade atualizada com sucesso");
+          // Atualize a mensagem do botão
+          setButtonText("Atualizado");
+          setidPrioridade(String(response.data.prioridade.idPrioridade)); // Adicione esta linha
           navigate("/adm/Chamados");
         }
       }
@@ -90,13 +89,14 @@ function AndamentoAdm() {
         setIsLoading(true);
         const response = await axios.get(`http://localhost:3000/chamados/${id}`);
         setChamado(response.data);
+        setidPrioridade(String(response.data.prioridade.idPrioridade)); // Adicione esta linha
         setIsLoading(false);
       } catch (error) {
         console.error(error);
         setIsLoading(false);
       }
     };
-
+  
     fetchData();
   }, [id]);
 
@@ -210,7 +210,7 @@ function AndamentoAdm() {
          
         </div>
         <div className="buttomcontainer">
-          <Button Text="Selecionar" onClick={handleClick} />
+          <Button Text={buttonText} onClick={handleClick} />
         </div>
         </div>
         
