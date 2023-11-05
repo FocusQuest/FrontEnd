@@ -16,7 +16,7 @@ function Inicio(){
                 </div>
 
                 <div className="content3">         
-
+                
                     <div className="botãobonito"><button id="user-btn">Usuário</button></div>
                     <br></br>
                     <div className="botãobonito"><button id="tech-btn">Técnico</button></div>

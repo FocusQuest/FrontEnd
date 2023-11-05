@@ -49,9 +49,11 @@ const CriarUsuario = () => {
     <C.Container>
       <div className="FormContainerCustom">
         <div>
-          <h2> Abrir chamado</h2>
+          <h2> Criar usuário </h2>
         </div>
 
+        <hr></hr>
+        
         <div className="Label">
           <span className="DescriptionCustom">Insira o nome:</span>
           <input
