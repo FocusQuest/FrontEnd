@@ -25,7 +25,12 @@ interface Chamado {
   suporte: {
     id: number,
     nomeUsuario: string 
-  }
+  };
+
+  prioridade: {
+    id: number,
+    descPrioridade: string
+  };
 };
 
 const ChamadosList: React.FC = () => {
@@ -99,7 +104,11 @@ const ChamadosList: React.FC = () => {
                 <button onClick={() => handleButtonClick(chamado.id)}>{chamado.andamento.descAndamento}</button>
               </Link>
               </td> 
-              <td>{chamado.andamento.prioridadeAndamento }</td> {/* retornará a prioridade que o adm atribuir */}            
+              <td>
+              <Link to={`/adm/Andamento_adm/${chamado.id}`}>
+                <button onClick={() => handleButtonClick(chamado.id)}>Selecionar</button>
+              </Link>
+              </td>           
               </tr>
               
           ))}
