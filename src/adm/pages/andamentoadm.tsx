@@ -1,6 +1,8 @@
+
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
 
 interface Chamado {
   id: number;
@@ -27,35 +29,65 @@ interface Chamado {
     id: number;
     nomeUsuario: string;
   };
+  prioridade: {
+    idPrioridade: number;
+    descPrioridade: string;
+  };
 }
 
 function AndamentoAdm() {
   
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string, prioridade: string }>();
   const [chamado, setChamado] = useState<Chamado | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [buttonText, setButtonText] = useState("");
-  const handleClaimChamado = async () => {
-    
-    const idTecnico = localStorage.getItem("idUsuario")!;
+  const Button = ({ Text, onClick }: { Text: string, onClick: () => void }) => <button onClick={onClick}>{Text}</button>;
+  const [idPrioridade, setidPrioridade] = useState<string>('');
+  
+  
+  const [chamados, setChamados] = useState<Chamado[]>([]);
+  
+  const handlePrioridadeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  setidPrioridade(event.target.value);
+};
+  const handleClick = async () => {
     try {
-      const response = await axios.patch(`http://localhost:3000/chamados/${id}`, {
-        idSuporte: parseInt(idTecnico),
-        idAndamento: 2,
-        tratInicio: ""
-      });
-      if (response.status === 200) {
-        setButtonText("Chamado assumido");
+      const chamadoId = chamado?.id;
+      if (chamadoId) {
+        const data = {
+          idChamado: chamadoId,
+          idPrioridade: idPrioridade,
+        };
+        console.log("Dados do formulário:", data); // Log the form data
+        const response = await axios.patch(`http://localhost:3000/chamados/${chamadoId}`, data);
+        console.log("Resposta:", response); // Log the response
+        if (response.status === 200) {
+          alert("Prioridade atualizada com sucesso");
+          navigate("/adm/Chamados");
+        }
       }
-      // Handle the response if needed
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) {
+        setError(error.message);
+      }
     }
+  };
+  const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
+  const formatarData = (data: string) => {
+    const dataAbertura = new Date(data);
+    const dia = String(dataAbertura.getDate()).padStart(2, "0");
+    const mes = String(dataAbertura.getMonth() + 1).padStart(2, "0");
+    const ano = String(dataAbertura.getFullYear()).slice(-2);
+    const hora = String(dataAbertura.getHours()).padStart(2, "0");
+    const minutos = String(dataAbertura.getMinutes()).padStart(2, "0");
+    const segundos = String(dataAbertura.getSeconds()).padStart(2, "0");
+    return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(`http://localhost:3000/chamados/${id}`);
         setChamado(response.data);
         setIsLoading(false);
@@ -68,20 +100,10 @@ function AndamentoAdm() {
     fetchData();
   }, [id]);
 
-  const formatarData = (data: string) => {
-    const dataAbertura = new Date(data);
-    const dia = String(dataAbertura.getDate()).padStart(2, "0");
-    const mes = String(dataAbertura.getMonth() + 1).padStart(2, "0");
-    const ano = String(dataAbertura.getFullYear()).slice(-2);
-    const hora = String(dataAbertura.getHours()).padStart(2, "0");
-    const minutos = String(dataAbertura.getMinutes()).padStart(2, "0");
-    const segundos = String(dataAbertura.getSeconds()).padStart(2, "0");
-    return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
-  };
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
+   
 
   return (
     <div className="LabelS">
@@ -174,16 +196,22 @@ function AndamentoAdm() {
             readOnly
           />
         </div>
-        <div className="LabelSt">
+        <div className="LabelS">
           <span className="description">Prioridade</span>
-          <input
-            type="text"
-            placeholder="prioridade"
-            value={chamado && chamado.andamento ? chamado.andamento.prioridadeAndamento: ""}
-            readOnly
-          />
+            <select
+              value={idPrioridade}
+              onChange={(e) => setidPrioridade(e.target.value)}
+            >
+              <option value="0">Selecione...</option>
+              <option value="1">Baixa</option>
+              <option value="2">Média</option>
+              <option value="3">Alta</option>
+            </select>
+         
         </div>
-        <button onClick={handleClaimChamado}>{buttonText || "Assumir chamado"}</button>
+        <div className="buttomcontainer">
+          <Button Text="Selecionar" onClick={handleClick} />
+        </div>
         </div>
         
 
@@ -196,20 +224,13 @@ function AndamentoAdm() {
             readOnly
           ></textarea>
         </div>
-        <div className="LabelS">
-          <label>Responder chamado</label>
-          <textarea
-            className="descricao-input"
-            placeholder="Responder chamado"
-            
-          ></textarea>
-        </div>
-        <button onClick={handleClaimChamado}>{buttonText || "Responder"}</button>
+        
       </div>
     <div/>
     </div>
+    
   );
 };
-  
 
 export default AndamentoAdm;
+
