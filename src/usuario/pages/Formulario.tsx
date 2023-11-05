@@ -36,8 +36,9 @@ const Formulario: React.FC = () => {
       console.log("Resposta:", response); // Log the response
       if (response.status === 201) {
         const createdChamado = response.data;
-        // Do something with the created chamado object
-        console.log("Chamado:", createdChamado); // For example, log the created chamado
+        console.log("Chamado:", createdChamado);
+        // Salvar o ID do chamado em localStorage
+        localStorage.setItem("idChamado", createdChamado.id);
         navigate("/usuario/Sucesso");
       } else {
         // Handle the error case

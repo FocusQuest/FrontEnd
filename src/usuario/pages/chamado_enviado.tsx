@@ -5,7 +5,7 @@ function ChamadoEnviado(){
     return (
         <div>  
             <div>
-                <h2> O chamado #1234 foi enviado com sucesso </h2>
+                <h2> O chamado {localStorage.getItem("idChamado")} foi enviado com sucesso </h2>
             </div>
             <br></br>
     
