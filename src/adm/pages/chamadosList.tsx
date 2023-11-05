@@ -105,11 +105,7 @@ const ChamadosList: React.FC = () => {
                 <button onClick={() => handleButtonClick(chamado.id)}>{chamado.andamento.descAndamento}</button>
               </Link>
               </td> 
-              <td>
-              <Link to={`/adm/Andamento_adm/${chamado.id}`}>
-                <button onClick={() => handleButtonClick(chamado.id)}>Selecionar</button>
-              </Link>
-              </td>           
+              <td>{chamado.prioridade.descPrioridade}</td>           
               </tr>
               
           ))}
@@ -120,6 +116,7 @@ const ChamadosList: React.FC = () => {
 }
 
 export default ChamadosList;
+
 {/* // import React, { useState, useEffect } from 'react';
 // import { useForm } from 'react-hook-form';
 // import axios from 'axios';

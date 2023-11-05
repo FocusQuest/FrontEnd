@@ -25,7 +25,11 @@ interface Chamado {
   suporte: {
     id: number,
     nomeUsuario: string 
-  }
+  };
+  prioridade: {
+    idPrioridade: number;
+    descPrioridade: string;
+  };
 };
 
 function Painel() {
@@ -137,7 +141,7 @@ function Painel() {
                   </button>
                 </Link>
                 </td>             
-                <td></td>
+                <td>{chamado.prioridade.descPrioridade}</td>
               </tr>
           ))}
         </tbody>

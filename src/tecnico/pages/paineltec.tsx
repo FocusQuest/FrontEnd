@@ -25,7 +25,11 @@ interface Chamado {
   suporte: {
     id: number,
     nomeUsuario: string 
-  }
+  };
+  prioridade: {
+    idPrioridade: number;
+    descPrioridade: string;
+  };
 };
 
 function PainelTec() {
@@ -136,7 +140,7 @@ function PainelTec() {
                 <button onClick={() => handleButtonClick(chamado.id)}>{chamado.andamento.descAndamento}</button>
               </Link>
               </td> 
-              <td>{chamado.andamento.prioridadeAndamento }</td> {/* retornará a prioridade que o adm atribuir */}            
+              <td>{chamado.prioridade.descPrioridade }</td> {/* retornará a prioridade que o adm atribuir */}            
               </tr>
         ))}
         </tbody>

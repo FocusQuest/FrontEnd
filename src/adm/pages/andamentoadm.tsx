@@ -198,6 +198,15 @@ function AndamentoAdm() {
         </div>
         <div className="LabelS">
           <span className="description">Prioridade</span>
+          <input
+            type="text"
+            placeholder="Prioridade"
+            value={chamado && chamado.prioridade ? chamado.prioridade.descPrioridade : ""}
+            readOnly
+          />
+        </div>
+        <div className="LabelS">
+          <span className="description">Atribuir Prioridade</span>
             <select
               value={idPrioridade}
               onChange={(e) => setidPrioridade(e.target.value)}

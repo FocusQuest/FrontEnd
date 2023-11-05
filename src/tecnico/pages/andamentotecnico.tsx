@@ -27,6 +27,10 @@ interface Chamado {
     id: number;
     nomeUsuario: string;
   };
+  prioridade: {
+    idPrioridade: number;
+    descPrioridade: string;
+  };
 }
 
 function AndamentoTecnico() {
@@ -179,7 +183,7 @@ function AndamentoTecnico() {
           <input
             type="text"
             placeholder="prioridade"
-            value={chamado && chamado.andamento ? chamado.andamento.prioridadeAndamento: ""}
+            value={chamado && chamado.prioridade ? chamado.prioridade.descPrioridade: ""}
             readOnly
           />
         </div>
