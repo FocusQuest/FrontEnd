@@ -37,7 +37,9 @@ function AndamentoUsuario() {
   const [chamado, setChamado] = useState<Chamado | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [buttonText, setButtonText] = useState("");
-  const handleClaimChamado = async () => {
+  const [resposta, setResposta] = useState("");
+
+  const handlereabrirChamado = async () => {
     
     const idTecnico = localStorage.getItem("idUsuario")!;
     try {
@@ -60,15 +62,17 @@ function AndamentoUsuario() {
       try {
         const response = await axios.get(`http://localhost:3000/chamados/${id}`);
         setChamado(response.data);
+        setResposta(response.data.andamento.respostaChamado); // Atualize a resposta
         setIsLoading(false);
       } catch (error) {
         console.error(error);
         setIsLoading(false);
       }
     };
-
+  
     fetchData();
   }, [id]);
+
 
   const formatarData = (data: string) => {
     const dataAbertura = new Date(data);
@@ -185,15 +189,15 @@ function AndamentoUsuario() {
             readOnly
           />
         </div>
-        <button onClick={handleClaimChamado}>{buttonText || "Reabrir chamado"}</button>
+        <button onClick={handlereabrirChamado}>{buttonText || "Reabrir chamado"}</button>
         </div>
         
         <div className="LabelS">
           <label>Andamento</label>
           <textarea
             className="descricao-input"
-            placeholder="Andamento do chamado"
-            // value={chamado?.andamento.descAndamento || ""}
+            placeholder="Resposta"
+            value={resposta} // Use a resposta para definir o valor
             readOnly
           ></textarea>
         </div>

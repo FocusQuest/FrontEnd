@@ -35,8 +35,9 @@ interface Chamado {
 
 function AndamentoTecnico() {
   
-  const { id, prioridade } = useParams<{ id: string, prioridade: string }>();
+  const { id } = useParams<{ id: string, prioridade: string }>();
   const [chamado, setChamado] = useState<Chamado | null>(null);
+  const [resposta, setResposta] = useState(""); 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [buttonText, setButtonText] = useState("");
   const handleClaimChamado = async () => {
@@ -52,6 +53,19 @@ function AndamentoTecnico() {
         setButtonText("Chamado assumido");
       }
       // Handle the response if needed
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleResponderChamado = async () => { // Nova função para lidar com a resposta
+    try {
+      const response = await axios.patch(`http://localhost:3000/chamados/${id}`, {
+        respostaChamado: resposta
+      });
+      if (response.status === 200) {
+        setButtonText("Chamado respondido");
+      }
     } catch (error) {
       console.error(error);
     }
@@ -205,10 +219,11 @@ function AndamentoTecnico() {
           <textarea
             className="descricao-input"
             placeholder="Responder chamado"
-            
+            value={resposta}
+            onChange={e => setResposta(e.target.value)} 
           ></textarea>
         </div>
-        <button onClick={handleClaimChamado}>{buttonText || "Responder"}</button>
+        <button onClick={handleResponderChamado}>{buttonText || "Responder"}</button> 
       </div>
     <div/>
     </div>
