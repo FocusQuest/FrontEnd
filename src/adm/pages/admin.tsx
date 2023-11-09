@@ -13,9 +13,9 @@ function Admin() {
             Criar Usuário
           </button>
         </Link>
-        <Link to="/adm/Redefinir_senha" className="admin-link">
+        <Link to="/adm/Alterar_usuario" className="admin-link">
           <button className="admin-button" style={{ backgroundColor: '#7E7E7E' }}>
-            Redefinir Senha
+            Alterar usuário
           </button>
         </Link>
         <Link to="/adm/Adicionar_ferramenta" className="admin-link">

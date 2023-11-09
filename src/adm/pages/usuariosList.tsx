@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../css/table.css';
+import { Link } from "react-router-dom";
 
 interface Usuario {
   id: number;
@@ -11,6 +12,10 @@ interface Usuario {
 
 const UsuariosList: React.FC = () => {
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+  const handleButtonClick = (id: number) => {
+    // Lógica para lidar com o clique do botão
+    console.log(`Botão para alterar o usuário ${id}`);
+  };
 
   useEffect(() => {
     axios
@@ -34,14 +39,29 @@ const UsuariosList: React.FC = () => {
             <th>Nome</th>
             <th>Email</th>
             <th>Telefone</th>
+            <th>Alterar</th>
           </tr>
         </thead>
         <tbody>
-          {usuarios.map((usuario) => (
-            <tr key={usuario.id}>
-              <td>{usuario.nomeUsuario}</td>
-              <td>{usuario.emailUsuario}</td>
-              <td>{usuario.telefoneUsuario}</td>
+          {usuarios.map((Usuario) => (
+            <tr key={Usuario.id}>
+              <td>{Usuario.nomeUsuario}</td>
+              <td>{Usuario.emailUsuario}</td>
+              <td>{Usuario.telefoneUsuario}</td>
+              <td>
+              <Link to={`alterar_usuario/:id${Usuario.id}`}>
+                <button 
+                  style={{ 
+                    display: 'block', 
+                    marginLeft: 'auto', 
+                    marginRight: 'auto' 
+                  }}
+                  onClick={() => handleButtonClick(Usuario.id)}
+                >
+                  Editar
+                </button>
+              </Link>
+            </td>           
             </tr>
           ))}
         </tbody>

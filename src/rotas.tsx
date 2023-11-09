@@ -23,11 +23,11 @@ import ChamadosAtivos from './tecnico/pages/ativos';
 import CriaUsuario from './adm/pages/criar_usuario';
 import AdicionaFerramenta from './adm/pages/adicionar_ferramenta';
 import RedefineSenha from './adm/pages/redefinir_senha';
-import AdicionarServico from './adm/pages/adicionar_servico';
 import Inicio from './inicio/inicio';
 import AndamentoTecnico from './tecnico/pages/andamentotecnico';
 import AndamentoUsuario from './usuario/pages/andamentousuario';
 import AndamentoAdm from './adm/pages/andamentoadm';
+import AlterarUsuario from './adm/pages/editar_usuario';
 
 /**
  * Renders the `Item` component if the user is signed in, otherwise renders the `Signin` component.
@@ -67,10 +67,11 @@ const Rotas = (): JSX.Element => {
                             <Route path="Admin" element={<Admin />} />    
                             <Route path="Chamados" element={<ChamadosList />} />
                             <Route path="Criar_usuario" element={<CriaUsuario />} />
-                            <Route path="Adicionar_serviço" element={<AdicionarServico />} />
                             <Route path="Adicionar_ferramenta" element={<AdicionaFerramenta />} />
                             <Route path="Redefinir_senha" element={<RedefineSenha />} />     
-                            <Route path="Andamento_adm/:id" element={<AndamentoAdm/>} />                            
+                            <Route path="Andamento_adm/:id" element={<AndamentoAdm/>} /> 
+                            <Route path="Alterar_usuario" element={<AlterarUsuario />} />    
+                            {/* <Route path="/adm/alterar_usuario/:id" element={<AlterarUsuario />} />                      */}
 
                                 
                         </Route>
