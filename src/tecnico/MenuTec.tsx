@@ -1,18 +1,25 @@
-import "../css/index.css";
 import { Link } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/menu.css";
+import sair from "../img/sair.png";
 
 function MenuTec(): JSX.Element {
   return (
     <>
-      <div className="MenuSup">
-        <div id="MenuSupItem"></div>
+      <div className="MenuSup" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <div id="MenuSupItem">          
+        </div>
         <div>
           <h5>
             {" "}
-            {localStorage.getItem("nomeUsuario")}{" "} <br></br> Técnico 
+             {localStorage.getItem("nomeUsuario")}{" "} <br></br> Usuário
           </h5>
+        </div>
+        <div>
+          <Nav.Link as={Link} to="/">
+            <img src={sair} alt="Sair" className="logout-icon" /> {" "} Sair{" "}
+          </Nav.Link>
         </div>
       </div>
       <div className="sidebar-fixed">

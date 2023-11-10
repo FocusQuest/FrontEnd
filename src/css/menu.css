@@ -54,4 +54,10 @@ background-color: #495057;
     top: 0;
     left: 0;
   }
+
+  .logout-icon {
+    color: red; /* Muda a cor do ícone para vermelho */
+    width: 30px; /* Muda a largura do ícone para 30px */
+    height: 30px; /* Muda a altura do ícone para 30px */
+  }
   

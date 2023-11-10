@@ -2,19 +2,24 @@ import { Link } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/menu.css";
+import sair from "../img/sair.png";
 
 function MenuUsuario(): JSX.Element {
   return (
     <>
-      <div className="MenuSup">
-        <div id="MenuSupItem">
-          {/* <img src="./img/sino.png" alt="sino" /> */}
+      <div className="MenuSup" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <div id="MenuSupItem">          
         </div>
         <div>
           <h5>
             {" "}
              {localStorage.getItem("nomeUsuario")}{" "} <br></br> Usuário
           </h5>
+        </div>
+        <div>
+          <Nav.Link as={Link} to="/">
+            <img src={sair} alt="Sair" className="logout-icon" /> {" "} Sair{" "}
+          </Nav.Link>
         </div>
       </div>
       <div className="sidebar-fixed">
