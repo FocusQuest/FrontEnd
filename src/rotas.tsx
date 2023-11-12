@@ -28,6 +28,7 @@ import AndamentoTecnico from './tecnico/pages/andamentotecnico';
 import AndamentoUsuario from './usuario/pages/andamentousuario';
 import AndamentoAdm from './adm/pages/andamentoadm';
 import AlterarUsuario from './adm/pages/editar_usuario';
+import PainelAdm from './adm/pages/paineladm';
 
 /**
  * Renders the `Item` component if the user is signed in, otherwise renders the `Signin` component.
@@ -62,6 +63,7 @@ const Rotas = (): JSX.Element => {
                             <Route path="/usuario/Andamento_usuario/:id" element={<AndamentoUsuario/>} />
                         </Route>
                         <Route path="/adm" element={<BaseAdm />}>
+                            <Route path="Painel_adm" element={<PainelAdm />} />
                             <Route path="Usuarios" element={<UsuariosList />} /> 
                             <Route path="Ferramentas" element={<Ferramentas />} />        
                             <Route path="Admin" element={<Admin />} />    
