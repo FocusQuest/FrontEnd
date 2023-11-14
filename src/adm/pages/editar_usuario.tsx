@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../login/components/Button";
-import Input from "../../login/components/Input";
 import * as C from "../../login/estilos/estilos_signup";
-import useAuth from "../../login/hooks/useAuth";
 import axios from "axios";
 
 interface Usuario {
@@ -11,6 +9,10 @@ interface Usuario {
   nomeUsuario: string;
   emailUsuario: string;
   telefoneUsuario: string;
+}
+
+interface RouteParams {
+  id: string;
 }
 
 const AlterarUsuario = () => {
@@ -22,11 +24,12 @@ const AlterarUsuario = () => {
   const [nivelAcesso, setNivelAcesso] = useState("1");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+  const [setUsuarios] = useState<Usuario[]>([]);
+  const { id } = useParams();
 
   // const { signup } = useAuth();
 
-  const handleSignup = async () => {
+  const handleAlterarusuario= async () => {
     try {
       const data = {
         nomeUsuario: nome,
@@ -36,35 +39,43 @@ const AlterarUsuario = () => {
         nivelAcesso: nivelAcesso,
       };
       console.log(data);
-
-      const responseCadastro = await axios.post(
-        `http://localhost:3000/usuarios`,
+  
+      const responseCadastro = await axios.patch(
+        `http://localhost:3000/usuarios/${id}`,
         data,
       );
-
-      if (responseCadastro.status === 201) {
+  
+      if (responseCadastro.status === 200) {
         alert("Usuário alterado com sucesso!");
         navigate("/adm/Usuarios");
       }
-    } catch (error) {
+    } 
+    catch (error) {
+      console.error(error);
       if (error instanceof Error) {
         setError(error.message);
       }
     }
   };
 
-    useEffect(() => {
-      axios
-        .get('http://localhost:3000/usuarios/{id}')
-        .then((response) => setUsuarios(response.data.usuarios))
-        .catch((error) => console.error(error));
-    }, []);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/usuarios/${id}`)
+      .then((response) => {
+        const usuario = response.data;
+        setNome(usuario.nomeUsuario);
+        setEmail(usuario.emailUsuario);
+        setTelefone(usuario.telefoneUsuario);
+      })
+      .catch((error) => {
+        console.error(error);
+        if (error.response) {
+          console.log(error.response.data);
+        }
+      });
+  }, [id]);
   
     
-    // if (usuarios.length === 0) {
-    //   return <div>Loading...</div>;
-    // }
-
   return (
     <C.Container>
       <div className="FormContainerCustom">
@@ -96,8 +107,7 @@ const AlterarUsuario = () => {
           <span className="DescriptionCustom">Insira o email:</span>
           <input
             type="email"
-            placeholder={email}
-            value=""
+            value={email}
             onChange={(e) => [setEmail(e.target.value), setError("")]}
           />
         </div>
@@ -106,8 +116,7 @@ const AlterarUsuario = () => {
           <span className="DescriptionCustom">Confirme o email</span>
           <input
             type="email"
-            placeholder="Confirme seu e-mail"
-            value={emailConf}
+            value={email}
             onChange={(e) => [setEmailConf(e.target.value), setError("")]}
           />
         </div>
@@ -137,7 +146,7 @@ const AlterarUsuario = () => {
 
         <C.labelError>{error}</C.labelError>
         <div className="buttomcontainer">
-          <Button Text="Alterar cadastro" onClick={handleSignup} />
+          <Button Text="Alterar cadastro" onClick={handleAlterarusuario} />
         </div>
       </div>
     </C.Container>

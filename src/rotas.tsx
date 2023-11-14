@@ -72,8 +72,8 @@ const Rotas = (): JSX.Element => {
                             <Route path="Adicionar_ferramenta" element={<AdicionaFerramenta />} />
                             <Route path="Redefinir_senha" element={<RedefineSenha />} />     
                             <Route path="Andamento_adm/:id" element={<AndamentoAdm/>} /> 
-                            {/* <Route path="alterar_usuario" element={<AlterarUsuario />} />     */}
-                            <Route path="/adm/alterar_usuario/:id" element={<AlterarUsuario />} />                     
+                            <Route path="alterar_usuario/:id" element={<AlterarUsuario />} />   
+                            {/* <Route path="/adm/alterar_usuario/:id" element={<AlterarUsuario />} />                      */}
 
                                 
                         </Route>
