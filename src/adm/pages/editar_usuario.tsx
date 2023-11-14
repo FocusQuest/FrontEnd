@@ -96,8 +96,8 @@ const AlterarUsuario = () => {
           <span className="DescriptionCustom">Insira o email:</span>
           <input
             type="email"
-            placeholder="Digite seu e-mail"
-            value={email}
+            placeholder={email}
+            value=""
             onChange={(e) => [setEmail(e.target.value), setError("")]}
           />
         </div>

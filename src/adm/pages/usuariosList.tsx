@@ -50,7 +50,7 @@ const UsuariosList: React.FC = () => {
               <td>{Usuario.emailUsuario}</td>
               <td>{Usuario.telefoneUsuario}</td>
               <td>
-              <Link to={`alterar_usuario/:id${Usuario.id}`}>
+              <Link to={`/adm/alterar_usuario/${Usuario.id}`}>
                 <button 
                   style={{ 
                     display: 'block', 
