@@ -66,7 +66,7 @@ const ChamadosAtivos: React.FC = () => {
         return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
       };
       const handleButtonClick = (id: number) => {
-        // Lógica para lidar com o clique do botão
+        
         console.log(`Botão 'Andamento' clicado para o Chamado ${id}`);
       };
 
@@ -90,7 +90,9 @@ const ChamadosAtivos: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-        {chamados.map((chamado) => (
+        {chamados
+        .sort((a, b) => new Date(b.dataAberturaChamado).getTime() - new Date(a.dataAberturaChamado).getTime())
+        .map((chamado) => (
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>

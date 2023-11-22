@@ -71,7 +71,7 @@ function PainelTec() {
       };
 
       const handleButtonClick = (id: number) => {
-        // Lógica para lidar com o clique do botão
+        
         console.log(`Botão 'Andamento' clicado para o Chamado ${id}`);
       };
 

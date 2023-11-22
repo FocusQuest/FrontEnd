@@ -10,3 +10,4 @@ export const Input = styled.input`
   background-color: #f0f2f5;
   border: none;
 `;
+

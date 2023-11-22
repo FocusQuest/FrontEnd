@@ -51,13 +51,11 @@ function AndamentoTecnico() {
         idSuporte: parseInt(idTecnico),
         idAndamento: 2,
         tratInicio: "",
-        
-        
       });
       if (response.status === 200) {
         setButtonText("Chamado assumido");
+        localStorage.setItem(`assumido_${id}`, 'true');
       }
-      
     } catch (error) {
       console.error(error);
     }
@@ -93,12 +91,16 @@ function AndamentoTecnico() {
         setIsLoading(false);
         const respostaSalva = localStorage.getItem(`resposta_${id}`);
         const respondido = localStorage.getItem(`respondido_${id}`);
+        const assumido = localStorage.getItem(`assumido_${id}`);
         if (respostaSalva) {
           setResposta(respostaSalva);
         }
         if (respondido) {
           setIsRespondido(true);
           setButtonText2("Concluído");
+        }
+        if (assumido) {
+          setButtonText("Chamado assumido");
         }
       } catch (error) {
         console.error(error);
@@ -229,7 +231,7 @@ function AndamentoTecnico() {
        
         
         <div className="LabelS">
-          <label>Responder chamado</label>
+          <label>Andamento</label>
           <textarea
             className="descricao-input"
             placeholder="Responder chamado"            

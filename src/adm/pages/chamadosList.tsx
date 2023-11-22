@@ -92,7 +92,9 @@ const ChamadosList: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-        {chamados.map((chamado) => (
+        {chamados
+        .sort((a, b) => new Date(b.dataAberturaChamado).getTime() - new Date(a.dataAberturaChamado).getTime())
+        .map((chamado) => (
             <tr key={chamado.id}>
               <td>{chamado.id}</td>
               <td>{chamado.nomeChamado}</td>

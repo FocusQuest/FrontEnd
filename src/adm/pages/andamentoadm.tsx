@@ -14,6 +14,8 @@ interface Chamado {
   idUsuario: number;
   idLab: number;
   idComputador: number;
+  resposta: string;
+
   usuario: {
     id: number;
     nomeUsuario: string;
@@ -44,6 +46,7 @@ function AndamentoAdm() {
   const Button = ({ Text, onClick }: { Text: string, onClick: () => void }) => <button onClick={onClick}>{Text}</button>;
   const [idPrioridade, setidPrioridade] = useState<string>('');
   const [buttonText, setButtonText] = useState("Atualizar");
+  const [resposta, setResposta] = useState("");
   
   
   const [chamados, setChamados] = useState<Chamado[]>([]);
@@ -55,13 +58,11 @@ function AndamentoAdm() {
         const data = {
           idPrioridade: Number(idPrioridade), // Converta para número
         };
-        console.log("Dados do formulário:", data); // Log the form data
         const response = await axios.patch(`http://localhost:3000/chamados/${chamadoId}`, data);
-        console.log("Resposta:", response); // Log the response
         if (response.status === 200) {
-          // Atualize a mensagem do botão
-          setButtonText("Atualizado");
-          setidPrioridade(String(response.data.prioridade.idPrioridade)); // Adicione esta linha
+          localStorage.setItem(`prioridade_${id}`, 'true');
+          localStorage.setItem(`idPrioridade_${id}`, idPrioridade); // Adicione esta linha
+          setButtonText("Atribuída");
           navigate("/adm/Chamados");
         }
       }
@@ -71,6 +72,30 @@ function AndamentoAdm() {
       }
     }
   };
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get(`http://localhost:3000/chamados/${id}`);
+        setChamado(response.data);
+        setResposta(response.data.mensagem); 
+        const prioridadeSelecionada = localStorage.getItem(`prioridade_${id}`);
+        const idPrioridadeSalvo = localStorage.getItem(`idPrioridade_${id}`);
+        if (prioridadeSelecionada) {
+          setButtonText("Atualizada");
+        }
+        setidPrioridade(idPrioridadeSalvo || String(response.data.prioridade.idPrioridade)); // Mova esta linha para fora do if
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
+    };
+  
+    fetchData();
+  }, [id]);
+
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const formatarData = (data: string) => {
@@ -84,22 +109,7 @@ function AndamentoAdm() {
     return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get(`http://localhost:3000/chamados/${id}`);
-        setChamado(response.data);
-        setidPrioridade(String(response.data.prioridade.idPrioridade)); // Adicione esta linha
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-        setIsLoading(false);
-      }
-    };
   
-    fetchData();
-  }, [id]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -197,30 +207,27 @@ function AndamentoAdm() {
             readOnly
           />
         </div>
+        
         <div className="LabelS">
           <span className="description">Prioridade</span>
-          <input
-            type="text"
-            placeholder="Prioridade"
-            value={chamado && chamado.prioridade ? chamado.prioridade.descPrioridade : ""}
-            readOnly
-          />
-        </div>
-        <div className="LabelS">
-          <span className="description">Atribuir Prioridade</span>
-            <select
-              value={idPrioridade}
-              onChange={(e) => setidPrioridade(e.target.value)}
-            >
-              <option value="0">Selecione...</option>
-              <option value="1">Baixa</option>
-              <option value="2">Média</option>
-              <option value="3">Alta</option>
-            </select>
+          <select
+            value={idPrioridade}
+            onChange={(e) => setidPrioridade(e.target.value)}
+            disabled={buttonText === "Atualizada"}
+          >
+            <option value="0">Selecione...</option>
+            <option value="1">Baixa</option>
+            <option value="2">Média</option>
+            <option value="3">Alta</option>
+          </select>
          
         </div>
         <div className="buttomcontainer">
-          <Button Text={buttonText} onClick={handleClick} />
+        {buttonText !== "Atualizada" && (
+          <button onClick={handleClick}>
+            {buttonText}
+          </button>
+        )}
         </div>
         </div>
         
@@ -229,8 +236,8 @@ function AndamentoAdm() {
           <label>Andamento</label>
           <textarea
             className="descricao-input"
-            placeholder="Andamento do chamado"
-            value={chamado && chamado.andamento ? chamado.andamento.respostaChamado : ""}
+            placeholder="Resposta"
+            value={resposta} 
             readOnly
           ></textarea>
         </div>

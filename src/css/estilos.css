@@ -145,6 +145,8 @@ button:hover {
   font-size: 14px; /* Tamanho da fonte */
 }
 
+
+
 .Label input:focus {
   border-color: #555; /* Borda mais escura quando a caixa de texto está em foco */
 }
@@ -413,6 +415,12 @@ h1 {
 }
 .LabelS input {
   padding-left: 10px;
+}
+
+.LabelS select {
+  padding-left: 10px;
+  width: 100%;
+  height: 30px;
 }
 
 .LabelSt {
