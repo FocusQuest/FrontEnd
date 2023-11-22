@@ -65,40 +65,47 @@ function AndamentoTecnico() {
 
   const handleResponderChamado = async () => { 
     try {
+      localStorage.setItem(`resposta_${id}`, resposta);
+      localStorage.setItem(`respondido_${id}`, 'true');
       const response = await axios.patch(`http://localhost:3000/chamados/${id}`, {
         mensagem: resposta
       });
       if (response.status === 200) {
-        setButtonText2("Chamado respondido");
-        setResposta(response.data.mensagem); 
+        setButtonText2("Concluído");
         setChamado(prevState => {
           if (prevState === null) {
-            return null; // ou retorne um novo objeto Chamado com valores padrão
+            return null;
           }
           return { ...prevState, mensagem: response.data.mensagem };
         }); 
-        setIsRespondido(true); // Adicione esta linha
+        setIsRespondido(true); 
       }
     } catch (error) {
       console.error(error);
     }
   };
-
   
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/chamados/${id}`);
         setChamado(response.data);
         setIsLoading(false);
-        setResposta(response.data.mensagem);
+        const respostaSalva = localStorage.getItem(`resposta_${id}`);
+        const respondido = localStorage.getItem(`respondido_${id}`);
+        if (respostaSalva) {
+          setResposta(respostaSalva);
+        }
+        if (respondido) {
+          setIsRespondido(true);
+          setButtonText2("Concluído");
+        }
       } catch (error) {
         console.error(error);
         setIsLoading(false);
       }
     };
-
+  
     fetchData();
   }, [id]);
 
@@ -227,10 +234,13 @@ function AndamentoTecnico() {
             className="descricao-input"
             placeholder="Responder chamado"            
             onChange={e => setResposta(e.target.value)} 
-            disabled={isRespondido} // Adicione esta linha
+            value={resposta}
+            disabled={isRespondido}
           ></textarea>
           </div>
-          <button onClick={handleResponderChamado} disabled={isRespondido}>{buttonText2 || "Responder"}</button> 
+          <button onClick={handleResponderChamado} disabled={isRespondido}>
+            {isRespondido ? "Concluído" : buttonText2 || "Responder"}
+          </button>
       </div>
     <div/>
     </div>

@@ -46,7 +46,7 @@ function AndamentoUsuario() {
       try {
         const response = await axios.get(`http://localhost:3000/chamados/${id}`);
         setChamado(response.data);
-        setResposta(response.data.mensagem); // Atualize a resposta
+        setResposta(response.data.mensagem); 
         setIsLoading(false);
       } catch (error) {
         console.error(error);
