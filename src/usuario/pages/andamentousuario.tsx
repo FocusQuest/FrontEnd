@@ -11,6 +11,7 @@ interface Chamado {
   idUsuario: number;
   idLab: number;
   idComputador: number;
+  mensagem: string;
   usuario: {
     id: number;
     nomeUsuario: string;
@@ -39,30 +40,13 @@ function AndamentoUsuario() {
   const [buttonText, setButtonText] = useState("");
   const [resposta, setResposta] = useState("");
 
-  const handlereabrirChamado = async () => {
-    
-    const idTecnico = localStorage.getItem("idUsuario")!;
-    try {
-      const response = await axios.patch(`http://localhost:3000/chamados/${id}`, {
-        idSuporte: parseInt(idTecnico),
-        idAndamento: 2,
-        tratInicio: ""
-      });
-      if (response.status === 200) {
-        setButtonText("Chamado enviado");
-      }
-      // Handle the response if needed
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/chamados/${id}`);
         setChamado(response.data);
-        setResposta(response.data.andamento.respostaChamado); // Atualize a resposta
+        setResposta(response.data.mensagem); // Atualize a resposta
         setIsLoading(false);
       } catch (error) {
         console.error(error);
@@ -189,7 +173,6 @@ function AndamentoUsuario() {
             readOnly
           />
         </div>
-        <button onClick={handlereabrirChamado}>{buttonText || "Reabrir chamado"}</button>
         </div>
         
         <div className="LabelS">
@@ -197,7 +180,7 @@ function AndamentoUsuario() {
           <textarea
             className="descricao-input"
             placeholder="Resposta"
-            value={resposta} // Use a resposta para definir o valor
+            value={resposta} 
             readOnly
           ></textarea>
         </div>

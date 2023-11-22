@@ -11,6 +11,7 @@ interface Chamado {
   idUsuario: number;
   idLab: number;
   idComputador: number;
+  mensagem: string;
   usuario: {
     id: number;
     nomeUsuario: string;
@@ -40,36 +41,50 @@ function AndamentoTecnico() {
   const [resposta, setResposta] = useState(""); 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [buttonText, setButtonText] = useState("");
-  const handleClaimChamado = async () => {
-    
+  const [buttonText2, setButtonText2] = useState("");
+  const [isRespondido, setIsRespondido] = useState(false);
+
+  const handleClaimChamado = async () => {    
     const idTecnico = localStorage.getItem("idUsuario")!;
     try {
       const response = await axios.patch(`http://localhost:3000/chamados/${id}`, {
         idSuporte: parseInt(idTecnico),
         idAndamento: 2,
-        tratInicio: ""
+        tratInicio: "",
+        
+        
       });
       if (response.status === 200) {
         setButtonText("Chamado assumido");
       }
-      // Handle the response if needed
+      
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleResponderChamado = async () => { // Nova função para lidar com a resposta
+  const handleResponderChamado = async () => { 
     try {
       const response = await axios.patch(`http://localhost:3000/chamados/${id}`, {
-        respostaChamado: resposta
+        mensagem: resposta
       });
       if (response.status === 200) {
-        setButtonText("Chamado respondido");
+        setButtonText2("Chamado respondido");
+        setResposta(response.data.mensagem); 
+        setChamado(prevState => {
+          if (prevState === null) {
+            return null; // ou retorne um novo objeto Chamado com valores padrão
+          }
+          return { ...prevState, mensagem: response.data.mensagem };
+        }); 
+        setIsRespondido(true); // Adicione esta linha
       }
     } catch (error) {
       console.error(error);
     }
   };
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,6 +92,7 @@ function AndamentoTecnico() {
         const response = await axios.get(`http://localhost:3000/chamados/${id}`);
         setChamado(response.data);
         setIsLoading(false);
+        setResposta(response.data.mensagem);
       } catch (error) {
         console.error(error);
         setIsLoading(false);
@@ -203,27 +219,18 @@ function AndamentoTecnico() {
         </div>
         <button onClick={handleClaimChamado}>{buttonText || "Assumir chamado"}</button>
         </div>
+       
         
-
-        <div className="LabelS">
-          <label>Andamento</label>
-          <textarea
-            className="descricao-input"
-            placeholder="Andamento do chamado"
-            value={chamado && chamado.andamento ? chamado.andamento.respostaChamado : ""}
-            readOnly
-          ></textarea>
-        </div>
         <div className="LabelS">
           <label>Responder chamado</label>
           <textarea
             className="descricao-input"
-            placeholder="Responder chamado"
-            value={resposta}
+            placeholder="Responder chamado"            
             onChange={e => setResposta(e.target.value)} 
+            disabled={isRespondido} // Adicione esta linha
           ></textarea>
-        </div>
-        <button onClick={handleResponderChamado}>{buttonText || "Responder"}</button> 
+          </div>
+          <button onClick={handleResponderChamado} disabled={isRespondido}>{buttonText2 || "Responder"}</button> 
       </div>
     <div/>
     </div>

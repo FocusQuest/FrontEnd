@@ -8,6 +8,7 @@ interface Chamado {
   id: number;
   nomeChamado: string;
   descChamado: string;
+  mensagem: string;
   dataAberturaChamado: string;
   idSuporte: string;
   idUsuario: number;
