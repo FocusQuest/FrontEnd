@@ -66,7 +66,9 @@ function AndamentoTecnico() {
       localStorage.setItem(`resposta_${id}`, resposta);
       localStorage.setItem(`respondido_${id}`, 'true');
       const response = await axios.patch(`http://localhost:3000/chamados/${id}`, {
-        mensagem: resposta
+        mensagem: resposta,
+        idAndamento: 4,
+        tratFim: ""
       });
       if (response.status === 200) {
         setButtonText2("Concluído");
