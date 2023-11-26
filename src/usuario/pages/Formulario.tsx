@@ -149,15 +149,7 @@ const Formulario: React.FC = () => {
             </div>
           </div>
 
-          <div className="LabelAnexo">
-            <label>Anexos</label>
-            <br></br>
-            <div className="Anexo">
-              <div className="anexo-input">
-                <input type="file" />
-              </div>
-            </div>
-          </div>
+          
         </div>
 
         <div className="Label">

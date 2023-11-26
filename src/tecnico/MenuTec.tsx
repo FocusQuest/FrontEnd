@@ -13,7 +13,7 @@ function MenuTec(): JSX.Element {
         <div>
           <h5>
             {" "}
-             {localStorage.getItem("nomeUsuario")}{" "} <br></br> Usuário
+             {localStorage.getItem("nomeUsuario")}{" "} <br></br> Técnico
           </h5>
         </div>
         <div>

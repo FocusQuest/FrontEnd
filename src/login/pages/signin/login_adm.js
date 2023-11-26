@@ -13,15 +13,26 @@ const LoginAdm = () => {
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [error, setError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [senhaError, setSenhaError] = useState("");
 
   const handleLogin = async () => {
-    try {
-      if (!email | !senha) {
-        setError("Preencha todos os campos");
-        return;
-      }
+    setEmailError("");
+    setSenhaError("");
 
+    if (!email) {
+      setEmailError("Preencha o campo de e-mail");
+    }
+
+    if (!senha) {
+      setSenhaError("Preencha o campo de senha");
+    }
+
+    if (!email || !senha) {
+      return;
+    }
+
+    try {
       const data = {
         emailUsuario: email,
         senhaUsuario: senha,
@@ -42,8 +53,18 @@ const LoginAdm = () => {
           responseLogin.data.usuario.nomeUsuario,
         );
         navigate("/adm/admin");
+      } else {
+        setEmailError('Verifique suas credenciais.');
+        setSenhaError('Verifique suas credenciais.');
       }
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setSenhaError('Verifique sua senha.');
+        
+      } else {
+        setEmailError('Verifique seu email.');
+        
+      }
       console.error(error);
     }
   };
@@ -56,15 +77,16 @@ const LoginAdm = () => {
           type="email"
           placeholder="Digite seu e-mail"
           value={email}
-          onChange={(e) => [setEmail(e.target.value), setError("")]}
+          onChange={(e) => [setEmail(e.target.value), setEmailError("")]}
         />
+        {emailError && <C.labelError>{emailError}</C.labelError>}
         <Input
           type="password"
           placeholder="Digite sua senha"
           value={senha}
-          onChange={(e) => [setSenha(e.target.value), setError("")]}
+          onChange={(e) => [setSenha(e.target.value), setSenhaError("")]}
         />
-        <C.labelError>{error}</C.labelError>
+        {senhaError && <C.labelError>{senhaError}</C.labelError>}
         <Button Text="Entrar" onClick={handleLogin} />
       </C.Content>
     </C.Container>

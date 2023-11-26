@@ -13,7 +13,7 @@ function MenuAdm(): JSX.Element {
         <div>
           <h5>
             {" "}
-             {localStorage.getItem("nomeUsuario")}{" "} <br></br> Usuário
+             {localStorage.getItem("nomeUsuario")}{" "} <br></br> Administrador
           </h5>
         </div>
         <div>
