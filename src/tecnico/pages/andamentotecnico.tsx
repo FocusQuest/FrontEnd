@@ -12,6 +12,10 @@ interface Chamado {
   idLab: number;
   idComputador: number;
   mensagem: string;
+  tratInicio: Date,
+  tratFim: Date,
+  idPrioridade: number,
+  idAndamento: number,
   usuario: {
     id: number;
     nomeUsuario: string;
@@ -44,6 +48,76 @@ function AndamentoTecnico() {
   const [buttonText2, setButtonText2] = useState("");
   const [isRespondido, setIsRespondido] = useState(false);
 
+
+      // Função para iniciar o temporizador com base na prioridade
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  let timerId: NodeJS.Timeout | null = null;
+
+  let shouldContinue = true;
+
+  const checkDeadline = async (idPrioridade: number, tratInicio: Date, idAndamento: number) => {
+    const runCheck = async (currentIdAndamento: number) => {
+      if (!shouldContinue) {
+        console.log('Aborting checkDeadline');
+        clearInterval(timerId!);
+        return;
+      }
+      const prioridadeConfig: Record<number, { tempoLimite: number }> = {
+        1: { tempoLimite: 30 * 1000 }, // *** TESTE
+        2: { tempoLimite: 12 * 60 * 60 * 1000 }, // Prioridade Média: 12 horas em milissegundos
+        3: { tempoLimite: 6 * 60 * 60 * 1000 },  // Prioridade Alta: 6 horas em milissegundos
+      };
+      const response = await axios.get(`http://localhost:3000/chamados/${id}`);
+      const latestChamado = response.data;
+      if (latestChamado) {
+        const tratInicio = new Date(latestChamado.tratInicio).getTime();
+        const idPrioridade = latestChamado.idPrioridade;      
+        const { tempoLimite } = prioridadeConfig[idPrioridade];
+        console.log('tempolimite',tempoLimite)
+        console.log('tratInicio', tratInicio)
+        console.log('idAndamento', currentIdAndamento)
+        if (currentIdAndamento === 2 && shouldContinue) {
+          timerId = setInterval(() => {
+            const dataAtual = new Date().getTime();
+            console.log("Calculando se o prazo já passou:")
+            console.log('dataAtual:', dataAtual);
+            if (dataAtual - tratInicio > tempoLimite) {
+              // Tempo estimado ultrapassado, faça uma requisição PATCH para atualizar o status
+              updateStatusAfterTimeout();
+              clearInterval(timerId!); // Stop the timer
+              return;
+            }
+            if (currentIdAndamento !== 2) {
+              console.log('idAndamento:', currentIdAndamento)
+              console.log('Interrompendo verificação do cumprimento do prazo do chamado');
+              clearInterval(timerId!);
+              shouldContinue = false;
+              return;
+            }
+          }, 3000); // Check every 3 seconds (adjust as necessary)    
+        }
+      }
+    };
+    // Run the check
+    await runCheck(idAndamento);
+  };
+
+  const updateStatusAfterTimeout = async () => {
+    try {
+      const response = await axios.patch(`http://localhost:3000/chamados/${id}`, {
+        idAndamento: 3,
+      });
+      if (response.status === 200) {
+        console.log('Status atualizado após ultrapassar o tempo estimado.');
+      } else {
+        console.log('Falha ao atualizar o status:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar o status:', error);
+    }
+  };
+ 
+
   const handleClaimChamado = async () => {    
     const idTecnico = localStorage.getItem("idUsuario")!;
     try {
@@ -55,11 +129,14 @@ function AndamentoTecnico() {
       if (response.status === 200) {
         setButtonText("Chamado assumido");
         localStorage.setItem(`assumido_${id}`, 'true');
+        // Call checkDeadline with the updated chamado
+        checkDeadline(response.data.idPrioridade, response.data.tratInicio, response.data.idAndamento);
       }
     } catch (error) {
       console.error(error);
     }
   };
+
 
   const handleResponderChamado = async () => { 
     try {
@@ -79,11 +156,14 @@ function AndamentoTecnico() {
           return { ...prevState, mensagem: response.data.mensagem };
         }); 
         setIsRespondido(true); 
+        await checkDeadline(response.data.idPrioridade, response.data.tratInicio, response.data.idAndamento);
       }
     } catch (error) {
       console.error(error);
     }
   };
+
+
   
   useEffect(() => {
     const fetchData = async () => {
@@ -250,6 +330,7 @@ function AndamentoTecnico() {
     </div>
   );
 };
+
   
 
 export default AndamentoTecnico;
