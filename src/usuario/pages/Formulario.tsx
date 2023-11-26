@@ -109,7 +109,7 @@ const Formulario: React.FC = () => {
         </div>
 
         <div className="LabelContainer">
-          <div className="Column">
+          
             <div className="Label">
               <label>Local</label>
               <select
@@ -147,7 +147,7 @@ const Formulario: React.FC = () => {
                 <option value="11">Profs-1</option>
               </select>
             </div>
-          </div>
+          
 
           
         </div>
