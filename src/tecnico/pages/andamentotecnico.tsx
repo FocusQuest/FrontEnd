@@ -44,54 +44,54 @@ function AndamentoTecnico() {
   const [chamado, setChamado] = useState<Chamado | null>(null);
   const [resposta, setResposta] = useState(""); 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [buttonText, setButtonText] = useState("Assumir chamado");
+  const [buttonText, setButtonText] = useState("");
   const [buttonText2, setButtonText2] = useState("");
   const [isRespondido, setIsRespondido] = useState(false);
 
 
       // Função para iniciar o temporizador com base na prioridade
   // eslint-disable-next-line react-hooks/exhaustive-deps
-
   const checkDeadline = async (idPrioridade: number) => {
-      const prioridadeConfig: Record<number, { tempoLimite: number }> = {
-        1: { tempoLimite: 30 * 1000 }, // *** TESTE
-        2: { tempoLimite: 12 * 60 * 60 * 1000 }, // Prioridade Média: 12 horas em milissegundos
-        3: { tempoLimite: 6 * 60 * 60 * 1000 },  // Prioridade Alta: 6 horas em milissegundos
-      };
-      
-      const response = await axios.get(`http://localhost:3000/chamados/${id}`);
-      const latestChamado = response.data;
-      let idAndamento = response.data.idAndamento;
-      const tratInicio = new Date(latestChamado.tratInicio).getTime();
-      const { tempoLimite } = prioridadeConfig[idPrioridade];
-      console.log('tempolimite',tempoLimite)
-      console.log('tratInicio', tratInicio)
-      console.log('idAndamento', idAndamento)
-      
-      if (idAndamento === 2) {
-        let timerId = setInterval(async () => {
-          const dataAtual = new Date().getTime();
-          console.log("Calculando se o prazo já passou:")
-          console.log('dataAtual:', dataAtual);
-          const response2 = await axios.get(`http://localhost:3000/chamados/${id}`);
-          const latestChamado2 = response2.data;
-          let idAndamento = latestChamado2.idAndamento;
-          console.log('currentIdAndamento:', idAndamento);
-      
-          if (idAndamento === 4) {
-            console.log('idAndamento:', idAndamento)
-            console.log('Chamado já concluído pelo técnico!');
-            console.log('Interrompendo verificação do cumprimento do prazo do chamado');
-            clearInterval(timerId);
-            // return;
-          } else if (dataAtual - tratInicio > tempoLimite) {
-            // Tempo estimado ultrapassado, faça uma requisição PATCH para atualizar o status
-            updateStatusAfterTimeout();
-            clearInterval(timerId); // Stop the timer
-            // return;
-          }
-        }, 3000);
-    }
+	  const prioridadeConfig: Record<number, { tempoLimite: number }> = {
+		1: { tempoLimite: 30 * 1000 }, // *** TESTE
+		2: { tempoLimite: 12 * 60 * 60 * 1000 }, // Prioridade Média: 12 horas em milissegundos
+		3: { tempoLimite: 6 * 60 * 60 * 1000 },  // Prioridade Alta: 6 horas em milissegundos
+	  };
+	  
+	  const response = await axios.get(`http://localhost:3000/chamados/${id}`);
+	  const latestChamado = response.data;
+	  let idAndamento = response.data.idAndamento;
+	  const tratInicio = new Date(latestChamado.tratInicio).getTime();
+															  
+	  const { tempoLimite } = prioridadeConfig[idPrioridade];
+	  console.log('tempolimite',tempoLimite)
+	  console.log('tratInicio', tratInicio)
+	  console.log('idAndamento', idAndamento)
+	  
+	  if (idAndamento === 2) {
+		let timerId = setInterval(async () => {
+		  const dataAtual = new Date().getTime();
+		  console.log("Calculando se o prazo já passou:")
+		  console.log('dataAtual:', dataAtual);
+		  const response2 = await axios.get(`http://localhost:3000/chamados/${id}`);
+		  const latestChamado2 = response2.data;
+		  let idAndamento = latestChamado2.idAndamento;
+		  console.log('currentIdAndamento:', idAndamento);
+	  
+		  if (idAndamento === 4) {
+			console.log('idAndamento:', idAndamento)
+			console.log('Chamado já concluído pelo técnico!');
+			console.log('Interrompendo verificação do cumprimento do prazo do chamado');
+			clearInterval(timerId);
+			// return;
+		  } else if (dataAtual - tratInicio > tempoLimite) {
+			// Tempo estimado ultrapassado, faça uma requisição PATCH para atualizar o status
+			updateStatusAfterTimeout();
+			clearInterval(timerId); // Stop the timer
+				 // return;
+				}
+			}, 3000);
+		}
 }; // Check every 3 seconds (adjust as necessary)    
 
 
@@ -149,6 +149,8 @@ function AndamentoTecnico() {
           return { ...prevState, mensagem: response.data.mensagem };
         }); 
         setIsRespondido(true); 
+
+
       }
     } catch (error) {
       console.error(error);
@@ -173,7 +175,7 @@ function AndamentoTecnico() {
           setIsRespondido(true);
           setButtonText2("Concluído");
         }
-        if (assumido && response.data.idSuporte === parseInt(localStorage.getItem("idUsuario")!)) {
+        if (assumido) {
           setButtonText("Chamado assumido");
         }
       } catch (error) {
