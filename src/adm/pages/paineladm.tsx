@@ -32,6 +32,7 @@ interface Chamado {
   descChamado: string;
   mensagem: string;
   dataAberturaChamado: string;
+  tratFim: string;
   idSuporte: string;
   idUsuario: number;
   idLab: number;
@@ -179,6 +180,7 @@ const PainelAdm: React.FC = () => {
       nomeChamado: chamado.nomeChamado,
       descChamado: chamado.descChamado,
       dataAberturaChamado: formatarData(chamado.dataAberturaChamado),
+      tratFim: formatarData(chamado.tratFim),
       idSuporte: chamado.idSuporte,
       idUsuario: chamado.idUsuario,
       idLab: chamado.idLab,
@@ -209,6 +211,7 @@ const PainelAdm: React.FC = () => {
       nomeChamado: chamado.nomeChamado,
       descChamado: chamado.descChamado,
       dataAberturaChamado: formatarData(chamado.dataAberturaChamado),
+      tratFim: formatarData(chamado.tratFim),
       idSuporte: chamado.idSuporte,
       idUsuario: chamado.idUsuario,
       idLab: chamado.idLab,
@@ -230,16 +233,20 @@ const PainelAdm: React.FC = () => {
     XLSX.writeFile(workbook, 'chamados.xlsx');
   };  
 
-const formatarData = (data: string) => {
-  const dataAbertura = new Date(data);
-  const dia = String(dataAbertura.getDate()).padStart(2, "0");
-  const mes = String(dataAbertura.getMonth() + 1).padStart(2, "0");
-  const ano = String(dataAbertura.getFullYear()).slice(-2);
-  const hora = String(dataAbertura.getHours()).padStart(2, "0");
-  const minutos = String(dataAbertura.getMinutes()).padStart(2, "0");
-  const segundos = String(dataAbertura.getSeconds()).padStart(2, "0");
-  return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
-};
+  const formatarData = (data: string | null) => {
+    if (data === null) {
+      return "Data desconhecida";
+    }
+  
+    const dataAbertura = new Date(data);
+    const dia = String(dataAbertura.getDate()).padStart(2, "0");
+    const mes = String(dataAbertura.getMonth() + 1).padStart(2, "0");
+    const ano = String(dataAbertura.getFullYear()).slice(-2);
+    const hora = String(dataAbertura.getHours()).padStart(2, "0");
+    const minutos = String(dataAbertura.getMinutes()).padStart(2, "0");
+    const segundos = String(dataAbertura.getSeconds()).padStart(2, "0");
+    return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
+  };
 
 
 
