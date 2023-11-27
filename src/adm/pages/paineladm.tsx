@@ -319,7 +319,7 @@ return (
           <select onChange={e => setPrioridadeFiltro(e.target.value)}>
             <option value="">Selecione a prioridade</option>
             <option value="Baixa">Baixa</option>
-            <option value="Media">Media</option>
+            <option value="Média">Média</option>
             <option value="Alta">Alta</option>                
           </select>
           
