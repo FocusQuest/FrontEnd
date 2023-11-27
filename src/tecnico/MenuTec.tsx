@@ -43,6 +43,7 @@ function MenuTec(): JSX.Element {
                   {" "}
                   Chamados{" "}
                 </Nav.Link>
+                <a href="/docs/Manual do técnico.pdf" target="_blank">Manual do usuário</a>
               </div>
             </nav>
           </div>
