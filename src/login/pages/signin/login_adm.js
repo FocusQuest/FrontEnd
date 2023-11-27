@@ -52,7 +52,7 @@ const LoginAdm = () => {
           "nomeUsuario",
           responseLogin.data.usuario.nomeUsuario,
         );
-        navigate("/adm/admin");
+        navigate("/adm/Painel_adm");
       } else {
         setEmailError('Verifique suas credenciais.');
         setSenhaError('Verifique suas credenciais.');

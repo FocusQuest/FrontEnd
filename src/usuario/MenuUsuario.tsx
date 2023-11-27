@@ -46,6 +46,7 @@ function MenuUsuario(): JSX.Element {
                   {" "}
                   Meus chamados{" "}
                 </Nav.Link>
+                <a href="/docs/Manual do usuário (2).pdf" target="_blank">Manual do usuário</a>
               </div>
             </nav>
           </div>
